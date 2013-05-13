@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BaloonsPop
@@ -12,90 +13,102 @@ namespace BaloonsPop
 
     public class Baloons
     {
-        const int shirina = 5;
-        const int length = 10;
+        const int GameFieldHeight = 5;
+        const int GameFieldWidth = 10;
 
-        private static int ost = shirina * length;
-        private static int counter = 0; private static int clearedCells = 0;
-        public static string[,] _t = new string[shirina, length];
-        public static StringBuilder tmp = new StringBuilder();
-        private static SortedDictionary<int, string> statistics = new SortedDictionary<int, string>();
+        private static int ballonsCount = GameFieldHeight * GameFieldWidth;
+        private static int playerMoveCount = 0;
+        private static int clearedCellsCount = 0;
+        public static string[,] gameField = new string[GameFieldHeight, GameFieldWidth];
+        public static StringBuilder userInput = new StringBuilder();
+        private static SortedDictionary<int, string> highScores = new SortedDictionary<int, string>();
 
         public static void Start()
         {
             Console.WriteLine("Welcome to “Balloons Pops” game. Please try to pop the balloons. Use 'top' to view the top scoreboard, 'restart' to start a new game and 'exit' to quit the game.");
-            ost = shirina * length;
-            counter = 0;
 
-            clearedCells = 0;
-            for (int i = 0; i < shirina; i++)
+            ballonsCount = GameFieldHeight * GameFieldWidth;
+            playerMoveCount = 0;
+            clearedCellsCount = 0;
+
+            for (int row = 0; row < GameFieldHeight; row++)
             {
-                for (int j = 0; j < length; j++)
+                for (int col = 0; col < GameFieldWidth; col++)
                 {
-                    _t[i, j] = RND.GetRandomInt();
+                    gameField[row, col] = RND.GetRandomInt();
                 }
             }
             Console.WriteLine("    0 1 2 3 4 5 6 7 8 9");
             Console.WriteLine("   ---------------------");
 
-            for (int i = 0; i < shirina; i++)
+            for (int row = 0; row < GameFieldHeight; row++)
             {
-                Console.Write(i + " | ");
+                Console.Write(row + " | ");
 
-                for (int j = 0; j < length; j++)
+                for (int col = 0; col < GameFieldWidth; col++)
                 {
-                    Console.Write(_t[i, j] + " ");
+                    Console.Write(gameField[row, col] + " ");
                 }
+
                 Console.Write("| ");
                 Console.WriteLine();
             }
 
             Console.WriteLine("   ---------------------");
-            GameLogic(tmp);
+            GameLogic(userInput);
         }
 
         public static void GameLogic(StringBuilder userInput)
         {
             PlayGame();
-            counter++;
+            playerMoveCount++;
             userInput.Clear();
             GameLogic(userInput);
-
-
         }
-        private static bool IsLegalMove(int i, int j)
+
+        private static bool IsLegalMove(int row, int col)
         {
-            if ((i < 0) || (j < 0) || (j > length - 1) || (i > shirina - 1)) return false;
-            else return (_t[i, j] != ".");
+            if ((row < 0) || (col < 0) ||
+                (col > GameFieldWidth - 1) ||
+                (row > GameFieldHeight - 1))
+            {
+                return false;
+            }
+            else if (gameField[row, col] == ".")
+            {
+                return false;
+            }
+
+            return true;
         }
 
-        private static void greshka()
+        private static void PrintInvalidMoveOrCommand()
         {
             Console.WriteLine("Invalid move or command");
-            tmp.Clear();
-            GameLogic(tmp);
+            userInput.Clear();
+            GameLogic(userInput);
         }
 
         private static void InvalidMove()
         {
             Console.WriteLine("Illegal move: cannot pop missing ballon!");
-            tmp.Clear();
-            GameLogic(tmp);
+            userInput.Clear();
+            GameLogic(userInput);
 
 
         }
 
         private static void ShowStatistics()
         {
-            PrintAgain();
+            PrintHighSchores();
         }
 
         private static void Exit()
         {
             Console.WriteLine("Good Bye");
             Thread.Sleep(1000);
-            Console.WriteLine(counter.ToString());
-            Console.WriteLine(ost.ToString());
+            Console.WriteLine(playerMoveCount.ToString());
+            Console.WriteLine(ballonsCount.ToString());
             Environment.Exit(0);
         }
 
@@ -104,35 +117,38 @@ namespace BaloonsPop
             Start();
         }
 
-        private static void ReadTheIput()
+        private static string ReadTheIput()
         {
             if (!IsFinished())
             {
                 Console.Write("Enter a row and column: ");
-                tmp.Append(Console.ReadLine());
+                userInput.Append(Console.ReadLine());
             }
             else
             {
-                Console.Write("opal;aaaaaaaa! You popped all baloons in " + counter + " moves."
+                Console.Write("opal;aaaaaaaa! You popped all baloons in " + playerMoveCount + " moves."
                                  + "Please enter your name for the top scoreboard:");
-                tmp.Append(Console.ReadLine());
-                statistics.Add(counter, tmp.ToString());
-                PrintAgain();
-                tmp.Clear();
+                userInput.Append(Console.ReadLine());
+                highScores.Add(playerMoveCount, userInput.ToString());
+                PrintHighSchores();
+                userInput.Clear();
                 Start();
             }
+
+            return userInput.ToString();
         }
 
-        private static void PrintAgain()
+        private static void PrintHighSchores()
         {
             int p = 0;
 
-
-
             Console.WriteLine("Scoreboard:");
-            foreach (KeyValuePair<int, string> s in statistics)
+            foreach (KeyValuePair<int, string> s in highScores)
             {
-                if (p == 4) break;
+                if (p == 4)
+                {
+                    break;
+                }
                 else
                 {
                     p++;
@@ -140,64 +156,99 @@ namespace BaloonsPop
                 }
             }
         }
+
+        private static void ReadCommand()
+        {
+            string currentCommand = ReadTheIput();
+
+            CommandRead(currentCommand);
+        }
+
         private static void PlayGame()
         {
             int i = -1;
             int j = -1;
 
-        Play:
-            ReadTheIput();
 
-            string hop = tmp.ToString();
-
-            if (tmp.ToString() == "") greshka();
-            if (tmp.ToString() == "top") { ShowStatistics(); tmp.Clear(); goto Play; }
-            if (tmp.ToString() == "restart") { tmp.Clear(); Restart(); }
-            if (tmp.ToString() == "exit") Exit();
+            ReadCommand();
 
             string activeCell;
-            tmp.Replace(" ", "");
+            userInput.Replace(" ", "");
             try
             {
-                i = Int32.Parse(tmp.ToString()) / 10;
-                j = Int32.Parse(tmp.ToString()) % 10;
+                i = Int32.Parse(userInput.ToString()) / 10;
+                j = Int32.Parse(userInput.ToString()) % 10;
             }
             catch (Exception)
             {
-                greshka();
+                PrintInvalidMoveOrCommand();
             }
+
             if (IsLegalMove(i, j))
             {
-                activeCell = _t[i, j];
+                activeCell = gameField[i, j];
                 clear(i, j, activeCell);
             }
             else
+            {
                 InvalidMove();
+            }
+
             remove();
+
+            // TODO: refactor to a new method DrawField()
             Console.WriteLine("    0 1 2 3 4 5 6 7 8 9");
             Console.WriteLine("   ---------------------");
 
-            for (int ii = 0; ii < shirina; ii++)
+            for (int ii = 0; ii < GameFieldHeight; ii++)
             {
                 Console.Write(ii + " | ");
 
-                for (int jj = 0; jj < length; jj++)
+                for (int jj = 0; jj < GameFieldWidth; jj++)
                 {
-                    Console.Write(_t[ii, jj] + " ");
+                    Console.Write(gameField[ii, jj] + " ");
                 }
                 Console.Write("| ");
                 Console.WriteLine();
             }
 
             Console.WriteLine("   ---------------------");
+            
+            // ---------------
         }
+
+    private static void CommandRead(string currentCommand)
+    {
+        if (currentCommand == "")
+        {
+            PrintInvalidMoveOrCommand();
+        }
+
+        if (currentCommand == "top")
+        {
+            ShowStatistics();
+            userInput.Clear();
+            ReadCommand();
+        }
+
+        if (currentCommand == "restart")
+        {
+            userInput.Clear();
+            Restart();
+        }
+
+        if (currentCommand == "exit")
+        {
+            Exit();
+        }
+    }
 
         private static void clear(int i, int j, string activeCell)
         {
-            if ((i >= 0) && (i <= 4) && (j <= 9) && (j >= 0) && (_t[i, j] == activeCell))
+            if ((i >= 0) && (i <= 4) && (j <= 9) && (j >= 0) && (gameField[i, j] == activeCell))
             {
-                _t[i, j] = ".";
-                clearedCells++;
+                gameField[i, j] = ".";
+                clearedCellsCount++;
                 //Up
                 clear(i - 1, j, activeCell);
                 //Down
@@ -209,8 +260,8 @@ namespace BaloonsPop
             }
             else
             {
-                ost -= clearedCells;
-                clearedCells = 0;
+                ballonsCount -= clearedCellsCount;
+                clearedCellsCount = 0;
                 return;
             }
         }
@@ -220,28 +271,29 @@ namespace BaloonsPop
             int i;
             int j;
             Queue<string> temp = new Queue<string>();
-            for (j = length - 1; j >= 0; j--)
+            for (j = GameFieldWidth - 1; j >= 0; j--)
             {
-                for (i = shirina - 1; i >= 0; i--)
+                for (i = GameFieldHeight - 1; i >= 0; i--)
                 {
-                    if (_t[i, j] != ".")
+                    if (gameField[i, j] != ".")
                     {
-                        temp.Enqueue(_t[i, j]);
-                        _t[i, j] = ".";
+                        temp.Enqueue(gameField[i, j]);
+                        gameField[i, j] = ".";
                     }
                 }
                 i = 4;
                 while (temp.Count > 0)
                 {
-                    _t[i, j] = temp.Dequeue();
+                    gameField[i, j] = temp.Dequeue();
                     i--;
                 }
                 temp.Clear();
             }
         }
+
         private static bool IsFinished()
         {
-            return (ost == 0);
+            return (ballonsCount == 0);
         }
     }
 
@@ -258,9 +310,8 @@ namespace BaloonsPop
         }
     }
 
-    class StartBaloons
+    public class StartBaloons
     {
-
         static void Main(string[] args)
         {
             Baloons.Start();

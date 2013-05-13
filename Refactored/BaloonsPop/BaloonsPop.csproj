@@ -40,6 +40,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="All.cs" />
+    <Compile Include="Balloon.cs" />
+    <Compile Include="GameEngine.cs" />
+    <Compile Include="GameField.cs" />
+    <Compile Include="InputParser.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
