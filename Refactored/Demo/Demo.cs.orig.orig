@@ -8,19 +8,8 @@ namespace Demo
 {
     class Demo
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        static void TestMethod()
-        {
-            Console.WriteLine("Test for conflicts");
-=======
         public void MartoAttack1()
         {
->>>>>>> 01d37eaa67fa595311379a44e081dccaf3ead59f
-=======
-        public void MartoAttack1()
-        {
->>>>>>> 1176d2dc6a6cf39e33bbbbbc09d247fdf125c8ca
         }
 
         static void Main(string[] args)
@@ -34,15 +23,26 @@ namespace Demo
         public void MartoAttack2()
         {
 
-<<<<<<< HEAD
-=======
         }
 
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
         public void MartoAttack3()
         {
 
         }
+
+
+=======
+>>>>>>> 1176d2dc6a6cf39e33bbbbbc09d247fdf125c8ca
+        static void PrintSometthing()
+        {
+            Console.WriteLine("I just print something!");
+        }
+>>>>>>> 16ed36f38776e35d89534287b5a43714aad35320
+    }
+}
 
 
 =======
