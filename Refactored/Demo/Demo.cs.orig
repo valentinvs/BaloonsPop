@@ -8,11 +8,35 @@ namespace Demo
 {
     class Demo
     {
+        public void MartoAttack1()
+        {
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine("yo yo");
             Console.WriteLine("It's Marto !");
             Console.WriteLine("It's Marto ! Second Edition");
+            Console.WriteLine("Edin red :)");
         }
+
+        public void MartoAttack2()
+        {
+
+        }
+
+<<<<<<< HEAD
+        public void MartoAttack3()
+        {
+
+        }
+
+
+=======
+        static void PrintSometthing()
+        {
+            Console.WriteLine("I just print something!");
+        }
+>>>>>>> 16ed36f38776e35d89534287b5a43714aad35320
     }
 }
