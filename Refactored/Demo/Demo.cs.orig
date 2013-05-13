@@ -12,6 +12,11 @@ namespace Demo
         static void TestMethod()
         {
             Console.WriteLine("Test for conflicts");
+        }
+            
+        public void MartoAttack1()
+        {
+        }
 =======
         public void MartoAttack1()
         {
@@ -29,6 +34,19 @@ namespace Demo
         public void MartoAttack2()
         {
 
+        }
+
+<<<<<<< HEAD
+        public void MartoAttack3()
+        {
+
+        }
+
+
+=======
+        static void PrintSometthing()
+        {
+            Console.WriteLine("I just print something!");
         }
     }
 }
