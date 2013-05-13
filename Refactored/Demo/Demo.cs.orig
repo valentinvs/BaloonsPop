@@ -25,9 +25,18 @@ namespace Demo
 
         }
 
+<<<<<<< HEAD
+        public void MartoAttack3()
+        {
+
+        }
+
+
+=======
         static void PrintSometthing()
         {
             Console.WriteLine("I just print something!");
         }
+>>>>>>> 16ed36f38776e35d89534287b5a43714aad35320
     }
 }
