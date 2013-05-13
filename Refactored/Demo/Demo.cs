@@ -25,5 +25,10 @@ namespace Demo
         {
 
         }
+
+        static void PrintSometthing()
+        {
+            Console.WriteLine("I just print something!");
+        }
     }
 }
