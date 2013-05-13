@@ -8,11 +8,27 @@ namespace Demo
 {
     class Demo
     {
+<<<<<<< HEAD
+        static void TestMethod()
+        {
+            Console.WriteLine("Test for conflicts");
+=======
+        public void MartoAttack1()
+        {
+>>>>>>> 01d37eaa67fa595311379a44e081dccaf3ead59f
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine("yo yo");
             Console.WriteLine("It's Marto !");
             Console.WriteLine("It's Marto ! Second Edition");
+            Console.WriteLine("Edin red :)");
+        }
+
+        public void MartoAttack2()
+        {
+
         }
     }
 }
