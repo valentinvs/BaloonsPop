@@ -15,5 +15,10 @@ namespace Demo
             Console.WriteLine("It's Marto ! Second Edition");
             Console.WriteLine("Edin red :)");
         }
+
+        static void PrintSometthing()
+        {
+            Console.WriteLine("I just print something!");
+        }
     }
 }
