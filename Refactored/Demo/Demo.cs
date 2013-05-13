@@ -8,6 +8,11 @@ namespace Demo
 {
     class Demo
     {
+        static void TestMethod()
+        {
+            Console.WriteLine("Test for conflicts");
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine("yo yo");
