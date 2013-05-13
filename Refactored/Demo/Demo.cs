@@ -8,8 +8,9 @@ namespace Demo
 {
     class Demo
     {
-        public void MartoAttack1()
+        static void fwwf()
         {
+            Console.WriteLine("Test for conflicts");
         }
 
         static void Main(string[] args)

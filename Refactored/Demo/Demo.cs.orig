@@ -8,8 +8,19 @@ namespace Demo
 {
     class Demo
     {
+<<<<<<< HEAD
+        static void TestMethod()
+        {
+            Console.WriteLine("Test for conflicts");
+        }
+            
         public void MartoAttack1()
         {
+        }
+=======
+        public void MartoAttack1()
+        {
+>>>>>>> 01d37eaa67fa595311379a44e081dccaf3ead59f
         }
 
         static void Main(string[] args)
@@ -37,6 +48,5 @@ namespace Demo
         {
             Console.WriteLine("I just print something!");
         }
->>>>>>> 16ed36f38776e35d89534287b5a43714aad35320
     }
 }
