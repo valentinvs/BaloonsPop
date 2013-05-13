@@ -12,6 +12,7 @@ namespace Demo
         {
             Console.WriteLine("yo yo");
             Console.WriteLine("It's Marto !");
+            Console.WriteLine("It's Marto ! Second Edition");
         }
     }
 }
