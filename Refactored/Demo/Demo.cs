@@ -20,5 +20,10 @@ namespace Demo
             Console.WriteLine("It's Marto ! Second Edition");
             Console.WriteLine("Edin red :)");
         }
+
+        public void MartoAttack2()
+        {
+
+        }
     }
 }
