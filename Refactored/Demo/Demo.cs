@@ -8,7 +8,7 @@ namespace Demo
 {
     class Demo
     {
-        static void fwwf()
+        static void Renamed()
         {
             Console.WriteLine("Test for conflicts");
         }
@@ -26,7 +26,7 @@ namespace Demo
 
         }
 
-        static void PrintSometthing()
+        static void HelloPrinter()
         {
             Console.WriteLine("I just print something!");
         }
