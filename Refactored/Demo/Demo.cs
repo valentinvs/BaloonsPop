@@ -21,7 +21,7 @@ namespace Demo
             Console.WriteLine("Edin red :)");
         }
 
-        public void MartoAttack2()
+        public void changeSomethingAttack()
         {
 
         }
