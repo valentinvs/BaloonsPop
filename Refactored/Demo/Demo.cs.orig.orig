@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Demo
+{
+    class Demo
+    {
+        public void MartoAttack1()
+        {
+        }
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("yo yo");
+            Console.WriteLine("It's Marto !");
+            Console.WriteLine("It's Marto ! Second Edition");
+            Console.WriteLine("Edin red :)");
+        }
+
+        public void MartoAttack2()
+        {
+
+        }
+
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+        public void MartoAttack3()
+        {
+
+        }
+
+
+=======
+>>>>>>> 1176d2dc6a6cf39e33bbbbbc09d247fdf125c8ca
+        static void PrintSometthing()
+        {
+            Console.WriteLine("I just print something!");
+        }
+>>>>>>> 16ed36f38776e35d89534287b5a43714aad35320
+    }
+}
