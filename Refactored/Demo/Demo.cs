@@ -26,7 +26,7 @@ namespace Demo
 
         }
 
-        static void PrintSometthing()
+        static void HelloPrinter()
         {
             Console.WriteLine("I just print something!");
         }
