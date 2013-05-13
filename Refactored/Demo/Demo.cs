@@ -8,7 +8,7 @@ namespace Demo
 {
     class Demo
     {
-        static void fwwf()
+        static void Renamed()
         {
             Console.WriteLine("Test for conflicts");
         }
