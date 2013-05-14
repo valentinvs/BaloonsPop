@@ -11,7 +11,7 @@ namespace Demo
     {
         static void Main(string[] args)
         {
-            Baloons.Start();
+            All.InitializeGame();
         }
     }
 }

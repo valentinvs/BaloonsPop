@@ -7,11 +7,7 @@ using System.Threading.Tasks;
 
 namespace BaloonsPop
 {
-    class All
-    {
-    }
-
-    public class Baloons
+    public class All
     {
         //gameEngine.cs
         private static int playerMoveCount = 0;
@@ -52,27 +48,30 @@ namespace BaloonsPop
         // gameEngine.cs
         private static void Restart()
         {
-            Start();
+            InitializeGame();
         }
 
         // gameEngine.cs
         private static string ReadTheIput()
         {
-            if (!IsFinished())
-            {
-                Console.Write("Enter a row and column: ");
-                userInput.Append(Console.ReadLine());
-            }
-            else
-            {
-                Console.Write("opal;aaaaaaaa! You popped all baloons in " + playerMoveCount + " moves."
-                                 + "Please enter your name for the top scoreboard:");
-                userInput.Append(Console.ReadLine());
-                highScores.Add(playerMoveCount, userInput.ToString());
-                PrintHighSchores();
-                userInput.Clear();
-                Start();
-            }
+            userInput.Append(Console.ReadLine());
+
+            // this check should be outside the method
+            //if (!IsFinished())
+            //{
+            //    Console.Write("Enter a row and column: ");
+            //    userInput.Append(Console.ReadLine());
+            //}
+            //else
+            //{
+            //    Console.Write("opal;aaaaaaaa! You popped all baloons in " + playerMoveCount + " moves."
+            //                     + "Please enter your name for the top scoreboard:");
+            //    userInput.Append(Console.ReadLine());
+            //    highScores.Add(playerMoveCount, userInput.ToString());
+            //    PrintHighSchores();
+            //    userInput.Clear();
+            //    InitializeGame();
+            //}
 
             return userInput.ToString();
         }
@@ -109,61 +108,44 @@ namespace BaloonsPop
         // gameEngine.cs / parser.cs
         private static void PlayGame()
         {
-            int i = -1;
-            int j = -1;
-
-
-            ReadCommand();
-
-            string activeCell;
-            userInput.Replace(" ", "");
             try
             {
+                ReadCommand();
+
+                userInput.Replace(" ", "");
+
                 // input: 5 7 => 57 => 57/10 = 5 => 57%10 => 7
-                //i = Int32.Parse(userInput.ToString()) / 10;
-                //j = Int32.Parse(userInput.ToString()) % 10;
+                int i = int.Parse(userInput.ToString()[0].ToString());
+                int j = int.Parse(userInput.ToString()[1].ToString());
 
-                i = int.Parse(userInput.ToString()[0].ToString());
-                j = int.Parse(userInput.ToString()[1].ToString());
-            }
-            catch (Exception)
-            {
-                PrintInvalidMoveOrCommand();
-            }
-
-            if (IsLegalMove(i, j))
-            {
-                // activeCell = user ballon choice
-                activeCell = gameField[i, j];
-                PopsEqualColoredBalloons(i, j, activeCell);
-            }
-            else
-            {
-                InvalidMove();
-            }
-
-            // to rename -> gravity effect -> gameField.cs
-            UpdateBalloonsPositions();
-
-            // TODO: refactor to a new method DrawField()
-            Console.WriteLine("    0 1 2 3 4 5 6 7 8 9");
-            Console.WriteLine("   ---------------------");
-
-            for (int ii = 0; ii < GameFieldHeight; ii++)
-            {
-                Console.Write(ii + " | ");
-
-                for (int jj = 0; jj < GameFieldWidth; jj++)
+                // check if the move is legal
+                if (IsLegalMove(i, j))
                 {
-                    Console.Write(gameField[ii, jj] + " ");
+                    // activeCell = user ballon choice
+                    string selectedBalloon = gameField[i, j];
+                    PopsEqualColoredBalloons(i, j, selectedBalloon);
+                    playerMoveCount++;
                 }
-                Console.Write("| ");
-                Console.WriteLine();
+                else
+                {
+                    // print UIMessages.error bocka6 tam kydeto nqma balon4e
+                    InvalidMove();
+                }
+
+                // TODO: update Ballons positions (gravity effect)
+                // TODO: redrawGameField();
+                // TODO: recursive call for endless loop
             }
-
-            Console.WriteLine("   ---------------------");
-
-            // ---------------
+            catch (FormatException exc)
+            {
+                Console.WriteLine("pesho si vkaral");
+                // print UIMessage.error napisal si Pesho != integer
+            }
+            catch (ArgumentOutOfRangeException exc)
+            {
+                Console.WriteLine("izlqzal si ot matricata");
+                // print UIMessages.error out of range
+            }
         }
 
         // gameEngine.cs -> switch eventualy
@@ -209,15 +191,14 @@ namespace BaloonsPop
         private static int clearedCellsCount = 0;
 
         // gameEngine.cs -> initialize() rename
-        public static void Start()
+        public static void InitializeGame()
         {
+            // UIMessage.Greetings
             Console.WriteLine("Welcome to “Balloons Pops” game. Please try to pop the balloons. Use 'top' to view the top scoreboard, 'restart' to start a new game and 'exit' to quit the game.");
 
-            //ballonsCount = GameFieldHeight * GameFieldWidth;
+            // gameField.Initialize()
             //playerMoveCount = 0;
-            //clearedCellsCount = 0;
 
-            // gameField set method
             InitiliazeGameField();
 
             // gameEngine.cs ???
@@ -228,32 +209,9 @@ namespace BaloonsPop
         public static void GameEngine(StringBuilder userInput)
         {
             PlayGame();
-            playerMoveCount++;
             userInput.Clear();
             GameEngine(userInput);
         }
-        
-        // errorMessage.cs
-        private static void PrintInvalidMoveOrCommand()
-        {
-            Console.WriteLine("Invalid move or command");
-            userInput.Clear();
-            GameEngine(userInput);
-        }
-
-        // errorMessage.cs
-        private static void InvalidMove()
-        {
-            Console.WriteLine("Illegal move: cannot pop missing ballon!");
-            userInput.Clear();
-            GameEngine(userInput);
-        }
-
-    }
-
-    // utils.cs
-    public static class RND
-    {
 
     }
 
@@ -262,7 +220,7 @@ namespace BaloonsPop
     {
         static void Main(string[] args)
         {
-            Baloons.Start();
+            All.InitializeGame();
         }
     }
 }
