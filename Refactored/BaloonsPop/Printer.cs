@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BaloonsPop
 {
-    class InputParser
+    class Printer
     {
     }
 }
