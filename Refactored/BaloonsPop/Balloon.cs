@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BaloonsPop
 {
-    class Balloon
+    public class Balloon
     {
         readonly char balloone = 'O';
         readonly char popedBalloone = '.';   //white color with char '.'     or      empty string :? 
@@ -19,7 +19,7 @@ namespace BaloonsPop
             this.Color = color;
         }
 
-        public  char  GetVisualisation()
+        public  char GetVisualisation()
         {
             if (isPop)
             {

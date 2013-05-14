@@ -11,7 +11,8 @@ namespace Demo
     {
         static void Main(string[] args)
         {
-            All.InitializeGame();
+            GameField gameField = new GameField();
+            Printer.PrintField(gameField.BalloonsMatrix);
         }
     }
 }

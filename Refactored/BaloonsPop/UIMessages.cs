@@ -15,16 +15,16 @@ namespace BaloonsPop
         private static void PrintInvalidMoveOrCommand()
         {
             Console.WriteLine("Invalid move or command");
-            userInput.Clear();
-            GameEngine(userInput);
+            //userInput.Clear();
+            //GameEngine(userInput);
         }
 
         // errorMessage.cs
         private static void InvalidMove()
         {
             Console.WriteLine("Illegal move: cannot pop missing ballon!");
-            userInput.Clear();
-            GameEngine(userInput);
+            //userInput.Clear();
+            //GameEngine(userInput);
         }
     }
 }
