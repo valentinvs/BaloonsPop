@@ -80,19 +80,19 @@ namespace BaloonsPop
         private static void PrintHighSchores()
         {
             // TOP 5 players
-            int p = 0;
+            int players = 0;
 
             Console.WriteLine("Scoreboard:");
             foreach (KeyValuePair<int, string> s in highScores)
             {
-                if (p > 4)
+                if (players > 4)
                 {
                     break;
                 }
                 else
                 {
-                    p++;
-                    Console.WriteLine("{0}. {1} --> {2} moves", p, s.Value, s.Key);
+                    players++;
+                    Console.WriteLine("{0}. {1} --> {2} moves", players, s.Value, s.Key);
                 }
             }
         }
@@ -148,7 +148,7 @@ namespace BaloonsPop
             }
         }
 
-        // gameEngine.cs -> switch eventualy
+        // gameEngine.cs -> switch eventualy (switch added down)
         private static void CommandRead(string currentCommand)
         {
             if (currentCommand == "")
@@ -175,11 +175,12 @@ namespace BaloonsPop
             }
         }
 
-        // CommandRead as switch
-
+        /// <summary>
+        /// Executes a command depending on user input.
+        ///</summary>
+        // CommandRead as switch:
         //private static void switch(string currentCommand)
         //{
-        
         //    case "":
         //        PrintInvalidMoveOrCommand();
         //        break;
