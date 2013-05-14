@@ -37,7 +37,7 @@ namespace BaloonsPop
 
         private static void Exit()
         {
-            //Console.WriteLine("Good Bye");
+            UIMessages.GoodBye();
             //Thread.Sleep(1000);
             //Console.WriteLine(playerMoveCount.ToString());
             //Console.WriteLine(BallonsCount.ToString());
@@ -58,13 +58,14 @@ namespace BaloonsPop
             // this check should be outside the method
             //if (!IsFinished())
             //{
-            //    Console.Write("Enter a row and column: ");
+            UIMessages.EnterRowCol();
             //    userInput.Append(Console.ReadLine());
             //}
             //else
             //{
-            //    Console.Write("opal;aaaaaaaa! You popped all baloons in " + playerMoveCount + " moves."
-            //                     + "Please enter your name for the top scoreboard:");
+            UIMessages.Congratulations();
+            Console.Write("opal;aaaaaaaa! You popped all baloons in " + playerMoveCount + " moves."
+                             + "Please enter your name for the top scoreboard:");
             //    userInput.Append(Console.ReadLine());
             //    highScores.Add(playerMoveCount, userInput.ToString());
             //    PrintHighSchores();

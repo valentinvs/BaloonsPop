@@ -11,6 +11,12 @@ namespace BaloonsPop
         public const int FieldHeight = 5;
         public const int FieldWidth = 10;
 
+        public const string LeftWall = " | ";
+        public const string RightWall = "| ";
+        public const string TopWall = "-";
+        public const string BottomWall = "-";
+
+
         private readonly int gameFieldWidth;
         private readonly int gameFieldHeight;
 

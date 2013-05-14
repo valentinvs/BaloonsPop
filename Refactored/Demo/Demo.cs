@@ -12,7 +12,7 @@ namespace Demo
         static void Main(string[] args)
         {
             GameField gameField = new GameField();
-            Printer.PrintField(gameField.BalloonsMatrix);
+            ConsolePrinter.PrintGameField(gameField.BalloonsMatrix);
         }
     }
 }
