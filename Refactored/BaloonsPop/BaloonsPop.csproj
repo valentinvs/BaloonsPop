@@ -43,6 +43,7 @@
     <Compile Include="Color.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="GameField.cs" />
+    <Compile Include="HighScore.cs" />
     <Compile Include="Printer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomNumberGenerator.cs" />

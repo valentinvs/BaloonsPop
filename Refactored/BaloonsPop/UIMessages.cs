@@ -6,10 +6,17 @@ using System.Threading.Tasks;
 
 namespace BaloonsPop
 {
-    class UIMessages
+    public static class UIMessages
     {
-        // TODO: refactor the messages, they should return string
-        // TODO: think about more possible UI messages
+        public static string Greetings()
+        {
+            string message = "Welcome to “Balloons Pops” game. ";
+            message += "Please try to pop the balloons. ";
+            message += "Use 'top' to view the top scoreboard, ";
+            message += "'restart' to start a new game and 'exit' to quit the game.";
+
+            return message;
+        }
 
         // errorMessage.cs
         private static void PrintInvalidMoveOrCommand()

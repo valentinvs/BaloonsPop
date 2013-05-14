@@ -75,26 +75,7 @@ namespace BaloonsPop
             return userInput.ToString();
         }
 
-        // gameEngine.cs
-        //private static void PrintHighSchores()
-        //{
-        //    // TOP 5 players
-        //    int players = 0;
-
-        //    Console.WriteLine("Scoreboard:");
-        //    foreach (KeyValuePair<int, string> s in highScores)
-        //    {
-        //        if (players > 4)
-        //        {
-        //            break;
-        //        }
-        //        else
-        //        {
-        //            players++;
-        //            Console.WriteLine("{0}. {1} --> {2} moves", players, s.Value, s.Key);
-        //        }
-        //    }
-        //}
+       
 
         // gameEngine.cs ?
         //private static void ReadCommand()
@@ -214,7 +195,7 @@ namespace BaloonsPop
         public static void InitializeGame()
         {
             // UIMessage.Greetings
-            Console.WriteLine("Welcome to “Balloons Pops” game. Please try to pop the balloons. Use 'top' to view the top scoreboard, 'restart' to start a new game and 'exit' to quit the game.");
+            Console.WriteLine();
 
             // gameField.Initialize()
             //playerMoveCount = 0;
