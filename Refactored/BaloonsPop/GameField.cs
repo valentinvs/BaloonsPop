@@ -16,7 +16,19 @@ namespace BaloonsPop
 
 
         // TODO: fields/properties for ballonsCount, clearedCellsCount
+        public class BalloonPopCounts
+        {
+            public int balloonsCount;
+            public int clearedCellsCount;
+        }
+
+
         // TODO: constructor( width, height)
+        public class GameFieldProperties
+        {
+            public int GameFieldHeight;
+            public int GameFieldWidth;
+        }
         
         // TODO: Refactore ToString()
         public override string ToString()
@@ -44,7 +56,7 @@ namespace BaloonsPop
         }
 
         // TODO: Refactor initialize the field (some random numbers from RandomClass, which returns random number)
-        private static void InitiliazeGameField()
+        public static void InitiliazeGameField()
         {
             //ballonsCount = GameFieldHeight * GameFieldWidth;
             //playerMoveCount = 0;
@@ -60,7 +72,7 @@ namespace BaloonsPop
         }
 
         // TODO: refactor method for gravity effect
-        private static void UpdateBalloonsPositions()
+        public static void UpdateBalloonsPositions()
         {
             int i;
             int j;
@@ -88,7 +100,7 @@ namespace BaloonsPop
         }
 
         // TODO: refactor method
-        private static void PopsEqualColoredBalloons(int i, int j, string selectedBalloon)
+        public static void PopsEqualColoredBalloons(int i, int j, string selectedBalloon)
         {
             if ((i >= 0) && (i <= GameFieldHeight - 1) && (j <= GameFieldWidth - 1) && (j >= 0) && (gameField[i, j] == selectedBalloon))
             {
