@@ -92,12 +92,14 @@ namespace BaloonsPop
 
             //helps to generate random color
             Array colors = Enum.GetValues(typeof(Color));
+            Color balloonColor;
 
             for (int row = 0; row < GameFieldHeight; row++)
             {
                 for (int col = 0; col < GameFieldWidth; col++)
                 {
-                    balloons[row, col].Color = (Color)colors.GetValue(RandomNumberGenerator.Instance.Next(0, colors.Length - 1));
+                    balloonColor= (Color)colors.GetValue(RandomNumberGenerator.Instance.Next(0, colors.Length - 1));
+                    balloons[row, col] = new Balloon(balloonColor);
                 }
             }
         }

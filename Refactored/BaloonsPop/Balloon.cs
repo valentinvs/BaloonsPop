@@ -8,11 +8,18 @@ namespace BaloonsPop
 {
     class Balloon
     {
-        static readonly char[] balloone = {'*'};
-        static readonly char[] popedBalloone = {'.'};   //white color with char '.'     or      empty string :? 
-        static private bool isPop = false;
+        readonly char balloone = 'O';
+        readonly char popedBalloone = '.';   //white color with char '.'     or      empty string :? 
+        private bool isPop = false;
         
-        public  char[]  GetVisualisation()
+        
+
+        public Balloon(Color color)
+        {
+            this.Color = color;
+        }
+
+        public  char  GetVisualisation()
         {
             if (isPop)
             {
@@ -28,7 +35,7 @@ namespace BaloonsPop
         //must be used
         public void Pop()
         {
-            isPop = true;
+            this.isPop = true;
         }
 
         public char Visualisation { get; protected set; }
