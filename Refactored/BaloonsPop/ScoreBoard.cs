@@ -8,5 +8,7 @@ namespace BaloonsPop
 {
     class ScoreBoard
     {
+        private static SortedDictionary<int, string> highScores = new SortedDictionary<int, string>();
+
     }
 }
