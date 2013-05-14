@@ -16,7 +16,9 @@ namespace BaloonsPop
         public int BallonsCount { get; set; }
         public int ClearedCellsCount { get; set; }
 
-        // TODO: constructor( width, height)
+        // TODO: constructor( width, height) - Not needed if the width and height will be left as constants.
+        
+
 
         /// <summary>
         /// Used to draw the field of the game on the console.
