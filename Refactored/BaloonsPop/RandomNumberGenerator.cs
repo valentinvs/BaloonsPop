@@ -6,15 +6,28 @@ using System.Threading.Tasks;
 
 namespace BaloonsPop
 {
-    class RandomNumberGenerator
+    public class RandomNumberGenerator
     {
-        static Random r = new Random();
-        public static string GetRandomInt()
+
+        private static readonly Random RNGInstance;
+
+        static RandomNumberGenerator()
         {
-            string legalChars = "1234";
-            string builder = null;
-            builder = legalChars[r.Next(0, legalChars.Length)].ToString();
-            return builder;
+            RNGInstance = new Random();
+        }
+
+        private RandomNumberGenerator()
+        {
+        }
+
+        public static Random Instance
+        {
+            get
+            {
+                return RNGInstance;
+            }
         }
     }
+
+
 }
