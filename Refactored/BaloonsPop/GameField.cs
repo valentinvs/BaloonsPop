@@ -10,6 +10,7 @@ namespace BaloonsPop
     {
         const int GameFieldHeight = 5;
         const int GameFieldWidth = 10;
+
         public static string[,] gameField = new string[GameFieldHeight, GameFieldWidth];
         private static int ballonsCount = GameFieldHeight * GameFieldWidth;
 
@@ -18,8 +19,6 @@ namespace BaloonsPop
 
         // TODO: constructor( width, height) - Not needed if the width and height will be left as constants.
         
-
-
         /// <summary>
         /// Used to draw the field of the game on the console.
         ///</summary>
@@ -34,9 +33,9 @@ namespace BaloonsPop
             {
                 Console.Write(row + " | ");
 
-                for (int col = 0; col < GameFieldWidth; col++)
+                for (int column = 0; column < GameFieldWidth; column++)
                 {
-                    Console.Write(gameField[row, col] + " ");
+                    Console.Write(gameField[row, column] + " ");
                 }
 
                 Console.Write("| ");
@@ -49,12 +48,11 @@ namespace BaloonsPop
         }
 
         /// <summary>
-        ///
+        /// Fill the game field with "balloons" by getting random 
+        /// numbers from the RandomNumberGenerator class.
         ///</summary>
-        // TODO: Refactor initialize the field (some random numbers from RandomClass, which returns random number)
         public static void InitiliazeGameField()
         {
-            //ballonsCount = GameFieldHeight * GameFieldWidth;
             //playerMoveCount = 0;
             //clearedCellsCount = 0;
             // gameField set method
@@ -66,8 +64,6 @@ namespace BaloonsPop
                 }
             }
         }
-
-
 
         /// <summary>
         /// Used to check if a there is a balloon that should fall 
@@ -105,7 +101,6 @@ namespace BaloonsPop
             }
         }
 
-
         /// <summary>
         /// PopsEqualColoredBalloons should check the poped balloon 
         /// neibhours`s colors and pop them if their equal to the 
@@ -117,13 +112,13 @@ namespace BaloonsPop
             {
                 gameField[i, j] = ".";
                 clearedCellsCount++;
-                //Up
+                //Check Up balloon.
                 PopsEqualColoredBalloons(i - 1, j, selectedBalloon);
-                //Down
+                //Check Down balloon.
                 PopsEqualColoredBalloons(i + 1, j, selectedBalloon);
-                //Left
+                //Check Left balloon.
                 PopsEqualColoredBalloons(i, j + 1, selectedBalloon);
-                //Right
+                //Check Right balloon.
                 PopsEqualColoredBalloons(i, j - 1, selectedBalloon);
             }
             else
@@ -133,7 +128,5 @@ namespace BaloonsPop
                 return;
             }
         }
-
-        
     }
 }
