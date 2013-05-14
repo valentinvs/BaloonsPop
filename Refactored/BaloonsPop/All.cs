@@ -175,14 +175,34 @@ namespace BaloonsPop
             }
         }
 
+        // CommandRead as switch
+
+        //private static void switch(string currentCommand)
+        //{
+        
+        //    case "":
+        //        PrintInvalidMoveOrCommand();
+        //        break;
+        //    case "top":
+        //        ShowStatistics();
+        //        userInput.Clear();
+        //        ReadCommand();
+        //        break;
+        //    case "restart":
+        //        userInput.Clear();
+        //        Restart();
+        //        break;
+        //    case "exit":
+        //        Exit();
+        //        break;
+        //    default;
+        //}
+
         // gameEngine.cs
         private static bool IsFinished()
         {
             return (ballonsCount == 0);
         }
-
-        // gameEngine.cs
-        private static SortedDictionary<int, string> highScores = new SortedDictionary<int, string>();
 
         // gameEngine.cs
         public static StringBuilder userInput = new StringBuilder();
