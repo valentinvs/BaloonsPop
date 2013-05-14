@@ -10,16 +10,18 @@ namespace BaloonsPop
     {
         // this goes to gameField.cs
         const int GameFieldHeight = 5;
-        const int GameFieldWidth = 5;
+        const int GameFieldWidth = 10;
         public static string[,] gameField = new string[GameFieldHeight, GameFieldWidth];
         private static int ballonsCount = GameFieldHeight * GameFieldWidth;
 
+        public int BallonsCount { get; set; }
+        public int ClearedCellsCount { get; set; }
 
         // TODO: fields/properties for ballonsCount, clearedCellsCount
         // TODO: constructor( width, height)
       
         
-        // TODO: Refactore ToString()
+        // TODO: Refactor ToString()
         public override string ToString()
         {
             // gameField.cs => ToString()
@@ -55,7 +57,7 @@ namespace BaloonsPop
             {
                 for (int col = 0; col < GameFieldWidth; col++)
                 {
-                    gameField[row, col] = RND.GetRandomInt();
+                    gameField[row, col] = RandomNumberGenerator.GetRandomInt();
                 }
             }
         }
@@ -65,7 +67,9 @@ namespace BaloonsPop
         {
             int i;
             int j;
+
             Queue<string> temp = new Queue<string>();
+
             for (j = GameFieldWidth - 1; j >= 0; j--)
             {
                 for (i = GameFieldHeight - 1; i >= 0; i--)
@@ -78,7 +82,9 @@ namespace BaloonsPop
                         gameField[i, j] = ".";
                     }
                 }
+
                 i = GameFieldHeight - 1;
+
                 while (temp.Count > 0)
                 {
                     gameField[i, j] = temp.Dequeue();
@@ -111,5 +117,7 @@ namespace BaloonsPop
                 return;
             }
         }
+
+        
     }
 }
