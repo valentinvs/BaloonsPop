@@ -22,7 +22,7 @@ namespace BaloonsPop
         {
             const int GameFieldHeight = 5;
             // GameFieldWidth should be 10 ?
-            const int GameFieldWidth = 5;
+            const int GameFieldWidth = 10;
         }
         
         // TODO: Refactore ToString()
