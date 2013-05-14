@@ -8,22 +8,16 @@ namespace BaloonsPop
 {
     class GameField
     {
-       
+        // this goes to gameField.cs
+        const int GameFieldHeight = 5;
+        const int GameFieldWidth = 5;
+        public static string[,] gameField = new string[GameFieldHeight, GameFieldWidth];
+        private static int ballonsCount = GameFieldHeight * GameFieldWidth;
+
+
         // TODO: fields/properties for ballonsCount, clearedCellsCount
-        public class BalloonPopCounts
-        {
-            public static string[,] gameField = new string[GameFieldHeight, GameFieldWidth];
-            private static int ballonsCount = GameFieldHeight * GameFieldWidth;
-        }
-
-
         // TODO: constructor( width, height)
-        public class GameFieldProperties
-        {
-            const int GameFieldHeight = 5;
-            // GameFieldWidth should be 10 ?
-            const int GameFieldWidth = 10;
-        }
+      
         
         // TODO: Refactore ToString()
         public override string ToString()
