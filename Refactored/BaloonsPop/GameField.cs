@@ -8,7 +8,6 @@ namespace BaloonsPop
 {
     class GameField
     {
-        // this goes to gameField.cs
         const int GameFieldHeight = 5;
         const int GameFieldWidth = 10;
         public static string[,] gameField = new string[GameFieldHeight, GameFieldWidth];
@@ -17,10 +16,11 @@ namespace BaloonsPop
         public int BallonsCount { get; set; }
         public int ClearedCellsCount { get; set; }
 
-        // TODO: fields/properties for ballonsCount, clearedCellsCount
         // TODO: constructor( width, height)
-      
-        
+
+        /// <summary>
+        /// Used to draw the field of the game on the console.
+        ///</summary>
         // TODO: Refactor ToString()
         public override string ToString()
         {
@@ -46,6 +46,9 @@ namespace BaloonsPop
             return "";
         }
 
+        /// <summary>
+        ///
+        ///</summary>
         // TODO: Refactor initialize the field (some random numbers from RandomClass, which returns random number)
         public static void InitiliazeGameField()
         {
@@ -62,39 +65,50 @@ namespace BaloonsPop
             }
         }
 
-        // TODO: refactor method for gravity effect
+
+
+        /// <summary>
+        /// Used to check if a there is a balloon that should fall 
+        /// trought if there is an empty space under it, and update 
+        /// its position if needed..
+        ///</summary>
         public static void UpdateBalloonsPositions()
         {
-            int i;
-            int j;
+            int height = GameFieldHeight - 1;
+            int width = GameFieldWidth - 1;
 
             Queue<string> temp = new Queue<string>();
 
-            for (j = GameFieldWidth - 1; j >= 0; j--)
+            for (width; width >= 0; width--)
             {
-                for (i = GameFieldHeight - 1; i >= 0; i--)
+                for (height; height >= 0; height--)
                 {
                     // if balloon is found, push it into the queue
-                    if (gameField[i, j] != ".")
+                    if (gameField[height, width] != ".")
                     {
                         // before dot
-                        temp.Enqueue(gameField[i, j]);
-                        gameField[i, j] = ".";
+                        temp.Enqueue(gameField[height, width]);
+                        gameField[height, width] = ".";
                     }
                 }
 
-                i = GameFieldHeight - 1;
+                height = GameFieldHeight - 1;
 
                 while (temp.Count > 0)
                 {
-                    gameField[i, j] = temp.Dequeue();
-                    i--;
+                    gameField[height, width] = temp.Dequeue();
+                    height--;
                 }
                 temp.Clear();
             }
         }
 
-        // TODO: refactor method
+
+        /// <summary>
+        /// PopsEqualColoredBalloons should check the poped balloon 
+        /// neibhours`s colors and pop them if their equal to the 
+        /// color of the poped balloon.
+        ///</summary>
         public static void PopsEqualColoredBalloons(int i, int j, string selectedBalloon)
         {
             if ((i >= 0) && (i <= GameFieldHeight - 1) && (j <= GameFieldWidth - 1) && (j >= 0) && (gameField[i, j] == selectedBalloon))

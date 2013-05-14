@@ -79,7 +79,7 @@ namespace BaloonsPop
         // gameEngine.cs
         private static void PrintHighSchores()
         {
-            // TOP 4 players
+            // TOP 5 players
             int p = 0;
 
             Console.WriteLine("Scoreboard:");
