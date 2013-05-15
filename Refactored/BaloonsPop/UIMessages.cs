@@ -12,7 +12,7 @@ namespace BaloonsPop
         {
             StringBuilder result = new StringBuilder();
 
-            result.Append("Welcome to “Balloons Pops” game. ");
+            result.Append("Welcome to “Balloons Pops” game.");
             result.Append("Please try to pop the balloons. ");
             result.Append("Use 'top' to view the top scoreboard, ");
             result.Append("'restart' to start a new game and 'exit' to quit the game.");
@@ -22,7 +22,7 @@ namespace BaloonsPop
 
         public static string InvalidMove()
         {
-            return "Invalid move!";
+            return "Invalid move! The row and col should be in the given range.";
         }
 
         public static string InvalidCommand()

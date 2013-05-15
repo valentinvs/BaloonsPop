@@ -8,38 +8,36 @@ namespace BaloonsPop
 {
     public class Balloon
     {
-        readonly char balloone = 'O';
-        readonly char popedBalloone = '.';   //white color with char '.'     or      empty string :? 
-        private bool isPop = false;
-        
-        
+        readonly char notPoppedBallooneChar = 'O';
+        readonly char poppedBallooneChar = '.';   //white color with char '.'     or      empty string :? 
 
         public Balloon(Color color)
         {
             this.Color = color;
+            this.IsPopped = false;
         }
 
-        public  char GetVisualisation()
+        public  char GetBalloonChar()
         {
-            if (isPop)
+            if (this.IsPopped)
             {
                 //this.Color = Color.White;
-                return popedBalloone;             //not sure if it's a goot practish to use this
+                return this.poppedBallooneChar;             //not sure if it's a goot practish to use this
             }
             else
             {
-                return balloone;
+                return this.notPoppedBallooneChar;
             }
         }
 
         //must be used
         public void Pop()
         {
-            this.isPop = true;
+            this.IsPopped = true;
         }
 
-        public char Visualisation { get; protected set; }
-        public Color Color { get; protected set; }
-        public bool IsPop { get; protected set; }
+        public char Visualisation { get; private set; }
+        public Color Color { get; private set; }
+        public bool IsPopped { get; private set; }
        }
 }

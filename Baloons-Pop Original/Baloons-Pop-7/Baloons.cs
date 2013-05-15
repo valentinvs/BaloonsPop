@@ -90,9 +90,10 @@ namespace BalloonsPops
 		private static void Exit()
 		{
 			Console.WriteLine("Good Bye");
-			Thread.Sleep(1000);
+
 			Console.WriteLine(counter.ToString());
 			Console.WriteLine(ost.ToString());
+            Thread.Sleep(1000);
 			Environment.Exit(0);
 		}
 

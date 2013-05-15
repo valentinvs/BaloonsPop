@@ -7,213 +7,144 @@ using System.Threading.Tasks;
 
 namespace BaloonsPop
 {
-    class GameEngine
+    public class GameEngine
     {
-        //gameEngine.cs
-        private static int playerMoveCount = 0;
+        private int playerMoveCount;
+        private GameField gameField;
+        private HighScore highScore;
+        private string command;
 
-
-        // gameEngine.cs
-        private static bool IsLegalMove(GameField gameField, int row, int col)
+        public GameEngine()
         {
-            //if ((row < 0) || (col < 0) ||
-            //    (col >= gameField.BalloonsMatrix.GetLength(1)) ||
-            //    (row >= gameField.BalloonsMatrix.GetLength(0)))
-            //{
-            //    return false;
-            //}
-            //else if (gameField.BalloonsMatrix[row,col].IsPop)
-            //{
-            //    return false;
-            //}
-
-            return true;
+            this.gameField = new GameField();
+            this.playerMoveCount = 0;
+            this.highScore = new HighScore();
+            this.command = string.Empty;
         }
 
-        private static void ShowStatistics()
+        public void Run()
         {
-            // PrintHighSchores();
+            this.InitializeGame();
+            ConsolePrinter.Message(UIMessages.Greetings());
+
+            while (true)
+            {
+                this.DrawField();
+
+                // check if the game has ended
+                if (!(this.gameField.BallonsCount == 0))
+                {
+                    ConsolePrinter.Message(UIMessages.EnterRowCol());
+                    this.command = this.ReadConsoleInput();
+                    this.ParseCommand();
+                    this.ExecuteCommand(this.command);
+
+                    int rowIndex = int.Parse(this.command.ToString()[0].ToString());
+                    int colIndex = int.Parse(this.command.ToString()[1].ToString());
+
+                    if (this.IsLegalMove(rowIndex, colIndex))
+                    {
+                        Balloon selectedBalloon = this.gameField.BalloonsMatrix[rowIndex, colIndex];
+
+                        this.gameField.PopsEqualColoredBalloons(rowIndex, colIndex, selectedBalloon);
+                        this.gameField.UpdateBalloonsPositions();
+                        
+                        this.playerMoveCount++;
+                        this.gameField.BallonsCount--;
+                    }
+                    else
+                    {
+                        ConsolePrinter.Message(UIMessages.InvalidMove());
+                    }
+                }
+                else
+                {
+                    ConsolePrinter.Message(UIMessages.Congratulations() + this.playerMoveCount + " moves.");
+                    ConsolePrinter.Message(UIMessages.PleaseEnterYourName());
+                    this.command = this.ReadConsoleInput();
+
+                    this.highScore.AddResult(this.command, this.playerMoveCount);
+                    this.ShowStatistics();
+
+                    this.Run();
+                }
+            }
         }
 
-        private static void Exit()
+        private bool IsLegalMove(int row, int col)
         {
-            UIMessages.GoodBye();
-            //Thread.Sleep(1000);
-            //Console.WriteLine(playerMoveCount.ToString());
-            //Console.WriteLine(BallonsCount.ToString());
-            //Environment.Exit(0);
+            if ((row >= 0) || (col >= 0) ||
+                (col < GameField.FieldWidth) ||
+                (row < GameField.FieldHeight))
+            {
+                return true;
+            }
+            else if (!this.gameField.BalloonsMatrix[row, col].IsPopped)
+            {
+                return true;
+            }
+
+            return false;
         }
 
-        // gameEngine.cs
-        private static void Restart()
+        private void ShowStatistics()
         {
-           // InitializeGame();
+            ConsolePrinter.Message(this.highScore.ToString());
         }
 
-        // gameEngine.cs
-        private static string ReadTheIput()
+        private void Exit()
         {
-            userInput.Append(Console.ReadLine());
-
-            // this check should be outside the method
-            //if (!IsFinished())
-            //{
-            UIMessages.EnterRowCol();
-            //    userInput.Append(Console.ReadLine());
-            //}
-            //else
-            //{
-            UIMessages.Congratulations();
-            Console.Write("opal;aaaaaaaa! You popped all baloons in " + playerMoveCount + " moves."
-                             + "Please enter your name for the top scoreboard:");
-            //    userInput.Append(Console.ReadLine());
-            //    highScores.Add(playerMoveCount, userInput.ToString());
-            //    PrintHighSchores();
-            //    userInput.Clear();
-            //    InitializeGame();
-            //}
-
-            return userInput.ToString();
+            ConsolePrinter.Message(UIMessages.GoodBye());
+            ConsolePrinter.Message("\nmoves: " + this.playerMoveCount.ToString());
+            ConsolePrinter.Message("\nballoons left: " + (this.gameField.BallonsCount - this.gameField.ClearedCellsCount).ToString() + "\n");
+            Thread.Sleep(1000);
+            Environment.Exit(0);
         }
 
-       
-
-        // gameEngine.cs ?
-        //private static void ReadCommand()
-        //{
-        //    string currentCommand = ReadTheIput();
-
-        //    CommandRead(currentCommand);
-        //}
-
-        // gameEngine.cs / parser.cs
-        //private static void PlayGame()
-        //{
-        //    try
-        //    {
-        //        ReadCommand();
-
-        //        userInput.Replace(" ", "");
-
-        //        // input: 5 7 => 57 => 57/10 = 5 => 57%10 => 7
-        //        int i = int.Parse(userInput.ToString()[0].ToString());
-        //        int j = int.Parse(userInput.ToString()[1].ToString());
-
-        //        // check if the move is legal
-        //        if (IsLegalMove(i, j))
-        //        {
-        //            // activeCell = user ballon choice
-        //            string selectedBalloon = gameField[i, j];
-        //            PopsEqualColoredBalloons(i, j, selectedBalloon);
-        //            playerMoveCount++;
-        //        }
-        //        else
-        //        {
-        //            // print UIMessages.error bocka6 tam kydeto nqma balon4e
-        //            InvalidMove();
-        //        }
-
-        //        // TODO: update Ballons positions (gravity effect)
-        //        // TODO: redrawGameField();
-        //        // TODO: recursive call for endless loop
-        //    }
-        //    catch (FormatException exc)
-        //    {
-        //        Console.WriteLine("pesho si vkaral");
-        //        // print UIMessage.error napisal si Pesho != integer
-        //    }
-        //    catch (ArgumentOutOfRangeException exc)
-        //    {
-        //        Console.WriteLine("izlqzal si ot matricata");
-        //        // print UIMessages.error out of range
-        //    }
-        //}
-
-        // gameEngine.cs -> switch eventualy (switch added down)
-        //private static void CommandRead(string currentCommand)
-        //{
-        //    if (currentCommand == "")
-        //    {
-        //        PrintInvalidMoveOrCommand();
-        //    }
-
-        //    if (currentCommand == "top")
-        //    {
-        //        ShowStatistics();
-        //        userInput.Clear();
-        //        ReadCommand();
-        //    }
-
-        //    if (currentCommand == "restart")
-        //    {
-        //        userInput.Clear();
-        //        Restart();
-        //    }
-
-        //    if (currentCommand == "exit")
-        //    {
-        //        Exit();
-        //    }
-        //}
-
-        /// <summary>
-        /// Executes a command depending on user input.
-        ///</summary>
-        // CommandRead as switch:
-        //private static void switch(string currentCommand)
-        //{
-        //    case "":
-        //        PrintInvalidMoveOrCommand();
-        //        break;
-        //    case "top":
-        //        ShowStatistics();
-        //        userInput.Clear();
-        //        ReadCommand();
-        //        break;
-        //    case "restart":
-        //        userInput.Clear();
-        //        Restart();
-        //        break;
-        //    case "exit":
-        //        Exit();
-        //        break;
-        //    default;
-        //}
-
-        // gameEngine.cs
-        //private static bool IsFinished()
-        //{
-        //    return (ballonsCount == 0);
-        //}
-
-        // gameEngine.cs
-        public static StringBuilder userInput = new StringBuilder();
-
-        // gameEngine.cs
-        private static int clearedCellsCount = 0;
-
-        // gameEngine.cs -> initialize() rename
-        public static void InitializeGame()
+        private void Restart()
         {
-            // UIMessage.Greetings
-            Console.WriteLine();
-
-            // gameField.Initialize()
-            //playerMoveCount = 0;
-
-            //InitiliazeGameField();
-
-            // gameEngine.cs ???
-            GameEngineMethod(userInput);
+            this.InitializeGame();
+            this.Run();
         }
 
-        // gameEngine.cs
-        public static void GameEngineMethod(StringBuilder userInput)
+        private void DrawField()
         {
-            //PlayGame();
-            userInput.Clear();
-            GameEngineMethod(userInput);
+            this.gameField.PrintToConsole();
         }
 
+        private string ParseCommand()
+        {
+            return this.command.Replace(" ", "");
+        }
+
+        private string ReadConsoleInput()
+        {
+            return Console.ReadLine().Replace(" ", "");
+        }
+
+        private void ExecuteCommand(string currentCommand)
+        {
+            if (currentCommand == "top")
+            {
+                this.ShowStatistics();
+                this.command = this.ReadConsoleInput();
+            }
+            else if (currentCommand == "restart")
+            {
+                this.Restart();
+            }
+            else if (currentCommand == "exit")
+            {
+                Exit();
+            }
+        }
+
+        private void InitializeGame()
+        {
+            Console.Clear();
+            this.playerMoveCount = 0;
+            this.gameField = new GameField();
+            this.command = string.Empty;
+        }
     }
 }

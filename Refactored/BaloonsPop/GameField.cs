@@ -11,57 +11,38 @@ namespace BaloonsPop
         public const int FieldHeight = 5;
         public const int FieldWidth = 10;
 
-        public const string LeftWall = " | ";
-        public const string RightWall = "| ";
-        public const string TopWall = "-";
-        public const string BottomWall = "-";
-
-
-        private readonly int gameFieldWidth;
-        private readonly int gameFieldHeight;
+        private const string LeftWall = " | ";
+        private const string RightWall = "| ";
+        private const string HorizontalWall = "-";
 
         private Balloon[,] balloons;
         private int ballonsCount;
-        private int clearedCellsCount;
+        private int poppedBalloonsCount;
 
         public GameField()
         {
-            this.gameFieldWidth = FieldWidth;
-            this.gameFieldHeight = FieldHeight;
-            this.balloons = new Balloon[FieldHeight, FieldWidth];
-            this.ballonsCount = FieldHeight * FieldWidth;
-            this.clearedCellsCount = 0;
+            this.BalloonsMatrix = new Balloon[FieldHeight, FieldWidth];
+            this.BallonsCount = FieldHeight * FieldWidth;
+            this.poppedBalloonsCount = 0;
 
             this.InitiliazeGameField();
         }
-
-
 
         public int ClearedCellsCount
         {
             get
             {
-                return this.clearedCellsCount;
+                return this.poppedBalloonsCount;
             }
+
             private set
             {
-                this.clearedCellsCount = value;
-            }
-        }
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Given value is <= 0!");
+                }
 
-        public int GameFieldWidth
-        {
-            get
-            {
-                return this.gameFieldWidth;
-            }
-        }
-
-        public int GameFieldHeight
-        {
-            get
-            {
-                return this.gameFieldHeight;
+                this.poppedBalloonsCount = value;
             }
         }
 
@@ -72,7 +53,7 @@ namespace BaloonsPop
                 return ballonsCount;
             }
 
-            private set
+            set
             {
                 if (value < 0)
                 {
@@ -87,6 +68,7 @@ namespace BaloonsPop
         {
             get
             {
+                // deep copy ?
                 return this.balloons;
             }
 
@@ -101,37 +83,6 @@ namespace BaloonsPop
             }
 
         }
-
-        /// <summary>
-        /// Used to draw the field of the game on the console.
-        ///</summary>
-        // TODO: Refactor ToString()
-        public override string ToString()
-        {
-            // gameField.cs => ToString()
-            Console.WriteLine("    0 1 2 3 4 5 6 7 8 9");
-            Console.WriteLine("   ---------------------");
-
-            for (int row = 0; row < FieldHeight; row++)
-            {
-                Console.Write(row + " | ");
-
-                for (int column = 0; column < FieldWidth; column++)
-                {
-                    Console.ForegroundColor = Utilities.MatchColor(balloons[row, column].Color);
-                    Console.Write(balloons[row, column].GetVisualisation() + " ");
-                }
-
-                Console.Write("| ");
-                Console.WriteLine();
-            }
-
-            Console.WriteLine("   ---------------------");
-
-            return "";
-        }
-
-       
 
         /// <summary>
         /// Fill the game field with "balloons" by getting random 
@@ -151,8 +102,9 @@ namespace BaloonsPop
             {
                 for (int col = 0; col < FieldWidth; col++)
                 {
-                    balloonColor = (Color)colors.GetValue(RandomNumberGenerator.Instance.Next(0, colors.Length - 1));
-                    balloons[row, col] = new Balloon(balloonColor);
+                    int randomNumber = RandomNumberGenerator.Instance.Next(0, colors.Length - 1);
+                    balloonColor = (Color)colors.GetValue(randomNumber);
+                    this.balloons[row, col] = new Balloon(balloonColor);
                 }
             }
         }
@@ -162,35 +114,38 @@ namespace BaloonsPop
         /// trought if there is an empty space under it, and update 
         /// its position if needed..
         ///</summary>
-        public static void UpdateBalloonsPositions()
+        public void UpdateBalloonsPositions()
         {
-            //int height = FieldHeight - 1;
-            //int width = FieldWidth - 1;
+            int row = FieldHeight - 1;
+            int col = FieldWidth - 1;
 
-            //Queue<string> temp = new Queue<string>();
+            Queue<Balloon> temp = new Queue<Balloon>();
 
-            //for (width; width >= 0; width--)
-            //{
-            //    for (height; height >= 0; height--)
-            //    {
-            //        // if balloon is found, push it into the queue
-            //        if (gameField[height, width] != ".")
-            //        {
-            //            // before dot
-            //            temp.Enqueue(gameField[height, width]);
-            //            gameField[height, width] = ".";
-            //        }
-            //    }
+            for (; col >= 0; col--)
+            {
+                for (; row >= 0; row--)
+                {
+                    // if balloon is found, push it into the queue
+                    if (!this.balloons[row, col].IsPopped)
+                    {
+                        // before dot
+                        temp.Enqueue(this.balloons[row, col]);
+                        this.balloons[row, col].Pop();
+                    }
+                }
 
-            //    height = FieldHeight - 1;
+                // foreach column, balloons are repositioned from
+                // the bottom row to the top row
+                // (gravity effect)
+                row = FieldHeight - 1;
 
-            //    while (temp.Count > 0)
-            //    {
-            //        gameField[height, width] = temp.Dequeue();
-            //        height--;
-            //    }
-            //    temp.Clear();
-            //}
+                while (temp.Count > 0)
+                {
+                    this.balloons[row, col] = temp.Dequeue();
+                    row--;
+                }
+                temp.Clear();
+            }
         }
 
         /// <summary>
@@ -198,34 +153,78 @@ namespace BaloonsPop
         /// neibhours`s colors and pop them if their equal to the 
         /// color of the poped balloon.
         ///</summary>
-        //public static void PopsEqualColoredBalloons(int i, int j, Balloon selectedBalloon)
-        //{
-        //    if ((i >= 0) && (i <= FieldHeight - 1) && (j <= FieldWidth - 1) && (j >= 0) && (balloons[i, j].Color == selectedBalloon.Color))
-        //    {
-        //        if (!balloons[i, j].IsPop)
-        //        {
-        //            balloons[i, j].Pop();
+        public void PopsEqualColoredBalloons(int row, int col, Balloon selectedBalloon)
+        {
+            bool rowIndexIsInside = (row >= 0) && (row < FieldHeight);
+            bool colIndexIsInside = (col >= 0) && (col < FieldWidth);
+            bool isEqualColoredBalloon = false;
 
-        //            clearedCellsCount++;
+            if (rowIndexIsInside && colIndexIsInside)
+            {
+                isEqualColoredBalloon = (this.balloons[row, col].Color == selectedBalloon.Color);
+            }
 
-        //            //Check Up balloon.
-        //            PopsEqualColoredBalloons(i - 1, j, selectedBalloon);
-        //            //Check Down balloon.
-        //            PopsEqualColoredBalloons(i + 1, j, selectedBalloon);
-        //            //Check Left balloon.
-        //            PopsEqualColoredBalloons(i, j + 1, selectedBalloon);
-        //            //Check Right balloon.
-        //            PopsEqualColoredBalloons(i, j - 1, selectedBalloon);
-        //        }
 
-        //    }
-        //    else
-        //    {
-        //        ballonsCount -= clearedCellsCount;
-        //        clearedCellsCount = 0;
+            if (isEqualColoredBalloon)
+            {
+                if (!this.balloons[row, col].IsPopped)
+                {
+                    this.balloons[row, col].Pop();
 
-        //        return;
-        //    }
-        //}
+                    this.poppedBalloonsCount++;
+
+                    //Check Up balloon.
+                    PopsEqualColoredBalloons(row - 1, col, selectedBalloon);
+
+                    //Check Down balloon.
+                    PopsEqualColoredBalloons(row + 1, col, selectedBalloon);
+
+                    //Check Left balloon.
+                    PopsEqualColoredBalloons(row, col + 1, selectedBalloon);
+
+                    //Check Right balloon.
+                    PopsEqualColoredBalloons(row, col - 1, selectedBalloon);
+                }
+            }
+            else
+            {
+                this.ballonsCount -= this.poppedBalloonsCount;
+                this.poppedBalloonsCount = 0;
+                return;
+            }
+        }
+
+        /// <summary>
+        /// Print the Gamefield on the console
+        /// </summary>
+        /// <param name="balloons"></param>
+        public void PrintToConsole()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+
+            string horizontalLine = new string(HorizontalWall[0], (FieldWidth * 2) + 1);
+            string offset = "   ";
+
+            Console.WriteLine(offset + " 0 1 2 3 4 5 6 7 8 9");
+            Console.WriteLine(offset + horizontalLine);
+
+            for (int row = 0; row < FieldHeight; row++)
+            {
+                Console.Write(row + LeftWall);
+
+                for (int column = 0; column < FieldWidth; column++)
+                {
+                    Console.ForegroundColor = Utilities.MatchColor(this.balloons[row, column].Color);
+                    Console.Write(this.balloons[row, column].GetBalloonChar() + " ");
+                }
+
+                Console.ForegroundColor = ConsoleColor.White;
+
+                Console.Write(RightWall);
+                Console.WriteLine();
+            }
+
+            Console.WriteLine(offset + horizontalLine);
+        }
     }
 }

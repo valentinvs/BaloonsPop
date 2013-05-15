@@ -14,7 +14,7 @@ namespace BaloonsPopTests
         {
             GameField gameField = new GameField();
             int expectedFieldWidth = 10;
-            int actualFieldWidth = gameField.GameFieldWidth;
+            int actualFieldWidth = GameField.FieldWidth;
 
             Assert.AreEqual(expectedFieldWidth, actualFieldWidth);
             Assert.IsTrue(expectedFieldWidth == actualFieldWidth);
@@ -28,7 +28,7 @@ namespace BaloonsPopTests
             GameField gameField1 = new GameField();
             GameField gameField2 = new GameField();
 
-            int expected = gameField1.GameFieldHeight * gameField1.GameFieldWidth;
+            int expected = GameField.FieldHeight * GameField.FieldWidth;
             int actual = 0;
 
             for (int row = 0; row < gameField1.BalloonsMatrix.GetLength(0); row++)
