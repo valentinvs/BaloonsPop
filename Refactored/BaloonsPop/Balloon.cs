@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace BaloonsPop
 {
-    public class Balloon
+    public class Balloon : ICloneable
     {
         readonly char notPoppedBallooneChar = 'O';
-        readonly char poppedBallooneChar = '.';   //white color with char '.'     or      empty string :? 
+        readonly char poppedBallooneChar = ' ';   //white color with char '.'     or      empty string :? 
 
         public Balloon(Color color)
         {
@@ -17,7 +17,7 @@ namespace BaloonsPop
             this.IsPopped = false;
         }
 
-        public  char GetBalloonChar()
+        public char GetBalloonChar()
         {
             if (this.IsPopped)
             {
@@ -36,8 +36,20 @@ namespace BaloonsPop
             this.IsPopped = true;
         }
 
+        public Balloon Clone()
+        {
+            Balloon clone = new Balloon(this.Color);
+            
+            return clone;
+        }
+
+        object ICloneable.Clone()
+        {
+            return this.Clone();
+        }
+
         public char Visualisation { get; private set; }
         public Color Color { get; private set; }
         public bool IsPopped { get; private set; }
-       }
+    }
 }

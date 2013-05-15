@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -116,14 +117,14 @@ namespace BaloonsPop
         ///</summary>
         public void UpdateBalloonsPositions()
         {
-            int row = FieldHeight - 1;
-            int col = FieldWidth - 1;
-
             Queue<Balloon> temp = new Queue<Balloon>();
-
-            for (; col >= 0; col--)
+            
+            int row;
+            for (int col = 0; col < BalloonsMatrix.GetLength(1); col++)
             {
-                for (; row >= 0; row--)
+                //int row = FieldHeight - 1;
+
+                for (row = BalloonsMatrix.GetLength(0) - 1; row >= 0; row--)
                 {
                     // if balloon is found, push it into the queue
                     if (!this.balloons[row, col].IsPopped)
@@ -137,15 +138,15 @@ namespace BaloonsPop
                 // foreach column, balloons are repositioned from
                 // the bottom row to the top row
                 // (gravity effect)
-                row = FieldHeight - 1;
+                row = BalloonsMatrix.GetLength(0);
 
                 while (temp.Count > 0)
                 {
-                    this.balloons[row, col] = temp.Dequeue();
-                    row--;
+                    this.balloons[--row, col] = temp.Dequeue().Clone();
                 }
                 temp.Clear();
             }
+            Console.WriteLine();
         }
 
         /// <summary>
