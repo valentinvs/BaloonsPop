@@ -24,7 +24,6 @@ namespace BaloonsPop
 
         public void Run()
         {
-            //this.InitializeGame();
             ConsolePrinter.Message(UIMessages.Greetings());
 
             while (true)

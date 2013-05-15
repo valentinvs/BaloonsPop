@@ -1,27 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace BaloonsPop
 {
+    using System;
+
+    /// <summary>
+    /// Represents a chess piece.
+    /// </summary>
     public class Balloon : ICloneable
     {
         readonly char notPoppedBallooneChar = 'O';
         readonly char poppedBallooneChar = ' ';   //white color with char '.'     or      empty string :? 
 
+        /// <summary>Initializes a new instance of the <see cref="Balloon"/> class.
+        /// </summary>
+        /// <param name="color">The balloon color.</param>
         public Balloon(Color color)
         {
             this.Color = color;
             this.IsPopped = false;
         }
 
+        /// <summary>Char of the bubble.
+        /// </summary>
+        /// <returns>If balloon IsPop return ' ',
+        /// else 'O' </returns>
         public char GetBalloonChar()
         {
             if (this.IsPopped)
             {
-                //this.Color = Color.White;
                 return this.poppedBallooneChar;             //not sure if it's a goot practish to use this
             }
             else
@@ -30,22 +37,25 @@ namespace BaloonsPop
             }
         }
 
-        //must be used
+        /// <summary>
+        /// Pop balloons and from there on the bubble is
+        /// treated as leaky and "Getbaloonchar" 
+        /// returns empty charm.
+        /// </summary>
         public void Pop()
         {
             this.IsPopped = true;
         }
 
-        public Balloon Clone()
+        /// <summary>
+        /// Performs a deep copy of the <see cref="Balloon"/> object.
+        /// </summary>
+        /// <returns>A copy of the object being cloned.</returns>
+        public object Clone()
         {
             Balloon clone = new Balloon(this.Color);
             
             return clone;
-        }
-
-        object ICloneable.Clone()
-        {
-            return this.Clone();
         }
 
         public char Visualisation { get; private set; }

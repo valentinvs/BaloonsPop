@@ -69,7 +69,7 @@ namespace BaloonsPop
         {
             get
             {
-                // deep copy ?
+                // deep copy  ?
                 return this.balloons;
             }
 
@@ -142,11 +142,10 @@ namespace BaloonsPop
 
                 while (temp.Count > 0)
                 {
-                    this.balloons[--row, col] = temp.Dequeue().Clone();
+                    this.balloons[--row, col] = (Balloon)temp.Dequeue().Clone();
                 }
                 temp.Clear();
             }
-            Console.WriteLine();
         }
 
         /// <summary>
