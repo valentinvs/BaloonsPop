@@ -38,6 +38,13 @@ namespace BaloonsPop
                     this.ParseCommand();
                     this.ExecuteCommand(this.userInput);
 
+                    while (this.userInput.Length<2)
+                    {
+                        ConsolePrinter.Message(UIMessages.InvalidCommand()+"\n");
+                        ConsolePrinter.Message(UIMessages.EnterRowCol());
+                        this.userInput = this.ReadConsoleInput();
+                    }
+
                     int rowIndex = int.Parse(this.userInput.ToString()[0].ToString());
                     int colIndex = int.Parse(this.userInput.ToString()[1].ToString());
 
