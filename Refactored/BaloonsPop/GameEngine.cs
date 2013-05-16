@@ -1,19 +1,16 @@
 ﻿namespace BaloonsPop
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading;
-    using System.Threading.Tasks;
 
     public class GameEngine
     {
+        private readonly HighScore highScore;
+        private readonly string[] menuCommands;
+
         private int playerMoveCount;
         private GameField gameField;
-        private readonly HighScore highScore;
         private string userInput;
-        private readonly string[] menuCommands;
 
         public GameEngine()
         {
@@ -30,6 +27,8 @@
             this.InitializeGame();
             this.GameLoop();
         }
+
+        #region Private Methods
 
         private void GameLoop()
         {
@@ -193,5 +192,7 @@
         {
             ConsolePrinter.Message(this.highScore.ToString());
         }
+
+        #endregion
     }
 }

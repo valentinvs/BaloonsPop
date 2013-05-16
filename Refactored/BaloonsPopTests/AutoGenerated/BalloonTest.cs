@@ -13,8 +13,6 @@ namespace BaloonsPopTests
     [TestClass()]
     public class BalloonTest
     {
-
-
         private TestContext testContextInstance;
 
         /// <summary>
