@@ -73,16 +73,16 @@ namespace BaloonsPop
                     this.highScore.AddResult(this.userInput, this.playerMoveCount);
                     this.ShowStatistics();
 
-                    this.Run();
+                    this.Restart();
                 }
             }
         }
 
         private bool IsLegalMove(int row, int col)
         {
-            if ((row >= 0) || (col >= 0) ||
-                (col < GameField.FieldWidth) ||
-                (row < GameField.FieldHeight))
+            if (
+                ((row >= 0) && (row < GameField.FieldHeight)) ||
+                ((col >= 0) && col < GameField.FieldWidth))
             {
                 return true;
             }
