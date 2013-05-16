@@ -129,7 +129,7 @@
         private void Exit()
         {
             ConsolePrinter.Message(UIMessages.GoodBye());
-            ConsolePrinter.Message("\nmoves: " + this.playerMoveCount.ToString());
+            ConsolePrinter.Message("\nmoves: " + this.playerMoveCount.ToString() + " ");
             ConsolePrinter.Message("\nballoons left: " + (this.gameField.BallonsCount - this.gameField.ClearedCellsCount).ToString() + "\n");
             Thread.Sleep(1000);
             Environment.Exit(0);
