@@ -47,7 +47,7 @@ namespace BaloonsPop
 
         public static string Congratulations()
         {
-            return "Congratulations!!! You popped all balloons with ";
+            return "Congratulations!!! You popped all balloons in ";
         }
 
         public static string PleaseEnterYourName()
