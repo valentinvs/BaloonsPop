@@ -73,7 +73,7 @@ namespace BaloonsPopTests
             Color color = new Color(); // TODO: Initialize to an appropriate value
             ConsoleColor expected = new ConsoleColor(); // TODO: Initialize to an appropriate value
             ConsoleColor actual;
-            actual = Utilities.MatchColor(color);
+            actual = ColorUtilities.MatchColor(color);
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }

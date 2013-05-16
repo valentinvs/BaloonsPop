@@ -213,7 +213,7 @@ namespace BaloonsPop
 
                 for (int column = 0; column < FieldWidth; column++)
                 {
-                    Console.ForegroundColor = Utilities.MatchColor(this.balloons[row, column].Color);
+                    Console.ForegroundColor = ColorUtilities.MatchColor(this.balloons[row, column].Color);
                     Console.Write(this.balloons[row, column].GetBalloonChar() + " ");
                 }
 

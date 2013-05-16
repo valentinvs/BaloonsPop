@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BaloonsPop
 {
-    public static class Utilities
+    public static class ColorUtilities
     {
         public static ConsoleColor MatchColor(Color color)
         {
