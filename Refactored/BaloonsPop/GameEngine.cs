@@ -12,14 +12,14 @@ namespace BaloonsPop
         private int playerMoveCount;
         private GameField gameField;
         private HighScore highScore;
-        private string command;
+        private string userInput;
 
         public GameEngine()
         {
             this.gameField = new GameField();
             this.playerMoveCount = 0;
             this.highScore = new HighScore();
-            this.command = string.Empty;
+            this.userInput = string.Empty;
         }
 
         public void Run()
@@ -34,12 +34,12 @@ namespace BaloonsPop
                 if (!(this.gameField.BallonsCount == 0))
                 {
                     ConsolePrinter.Message(UIMessages.EnterRowCol());
-                    this.command = this.ReadConsoleInput();
+                    this.userInput = this.ReadConsoleInput();
                     this.ParseCommand();
-                    this.ExecuteCommand(this.command);
+                    this.ExecuteCommand(this.userInput);
 
-                    int rowIndex = int.Parse(this.command.ToString()[0].ToString());
-                    int colIndex = int.Parse(this.command.ToString()[1].ToString());
+                    int rowIndex = int.Parse(this.userInput.ToString()[0].ToString());
+                    int colIndex = int.Parse(this.userInput.ToString()[1].ToString());
 
                     if (this.IsLegalMove(rowIndex, colIndex))
                     {
@@ -60,9 +60,9 @@ namespace BaloonsPop
                 {
                     ConsolePrinter.Message(UIMessages.Congratulations() + this.playerMoveCount + " moves.");
                     ConsolePrinter.Message(UIMessages.PleaseEnterYourName());
-                    this.command = this.ReadConsoleInput();
+                    this.userInput = this.ReadConsoleInput();
 
-                    this.highScore.AddResult(this.command, this.playerMoveCount);
+                    this.highScore.AddResult(this.userInput, this.playerMoveCount);
                     this.ShowStatistics();
 
                     this.Run();
@@ -113,7 +113,7 @@ namespace BaloonsPop
 
         private string ParseCommand()
         {
-            return this.command.Replace(" ", "");
+            return this.userInput.Replace(" ", "");
         }
 
         private string ReadConsoleInput()
@@ -126,7 +126,7 @@ namespace BaloonsPop
             if (currentCommand == "top")
             {
                 this.ShowStatistics();
-                this.command = this.ReadConsoleInput();
+                this.userInput = this.ReadConsoleInput();
             }
             else if (currentCommand == "restart")
             {
@@ -143,7 +143,7 @@ namespace BaloonsPop
             Console.Clear();
             this.playerMoveCount = 0;
             this.gameField = new GameField();
-            this.command = string.Empty;
+            this.userInput = string.Empty;
         }
     }
 }
