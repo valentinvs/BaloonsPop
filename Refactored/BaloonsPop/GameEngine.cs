@@ -40,18 +40,18 @@ namespace BaloonsPop
                     ConsolePrinter.Message(UIMessages.EnterRowCol());
                     this.userInput = this.ReadConsoleInput();
 
-                    while (!this.IsCommandValid(this.userInput))
-                    {
-                        this.userInput = this.ReadConsoleInput();
-                    }
-
-                    this.ExecuteCommand(this.userInput);
-
                     int rowIndex;
                     bool rowIsDigit = int.TryParse(this.userInput.ToString()[0].ToString(), out rowIndex);
 
                     int colIndex;
                     bool colIsDigit = int.TryParse(this.userInput.ToString()[1].ToString(), out colIndex);
+
+                    while (!this.IsCommandValid(this.userInput))
+                    {
+                        this.userInput = this.ReadConsoleInput();
+                    }
+
+                    this.ExecuteMenuCommand(this.userInput);
 
                     if (rowIsDigit && colIsDigit)
                     {
@@ -61,14 +61,7 @@ namespace BaloonsPop
 
                             if (!isBalloonPopped)
                             {
-                                Balloon selectedBalloon = this.gameField.BalloonsMatrix[rowIndex, colIndex];
-
-                                this.gameField.PopsEqualColoredBalloons(rowIndex, colIndex, selectedBalloon);
-                                this.gameField.UpdateBalloonsPositions();
-
-                                this.playerMoveCount++;
-                                this.gameField.BallonsCount -= this.gameField.ClearedCellsCount;
-                                this.gameField.ClearedCellsCount = 0;
+                                ExecutePopCommand(rowIndex, colIndex);
                             }
                             else
                             {
@@ -87,16 +80,45 @@ namespace BaloonsPop
                 }
                 else
                 {
-                    ConsolePrinter.Message(UIMessages.Congratulations() + this.playerMoveCount + " moves.");
-                    ConsolePrinter.Message(UIMessages.PleaseEnterYourName());
-                    this.userInput = this.ReadConsoleInput();
-
-                    this.highScore.AddResult(this.userInput, this.playerMoveCount);
-                    this.ShowStatistics();
-
-                    this.Restart();
+                    EndsGame();
                 }
             }
+        }
+
+        private void ExecutePopCommand(int rowIndex, int colIndex)
+        {
+            Balloon selectedBalloon = this.gameField.BalloonsMatrix[rowIndex, colIndex];
+
+            this.gameField.PopsEqualColoredBalloons(rowIndex, colIndex, selectedBalloon);
+            this.gameField.UpdateBalloonsPositions();
+
+            this.playerMoveCount++;
+            this.gameField.BallonsCount -= this.gameField.ClearedCellsCount;
+            this.gameField.ClearedCellsCount = 0;
+        }
+
+        private bool IsCommandValid(string userInput)
+        {
+            if (userInput.Length > 1)
+            {
+                return true;
+            }
+
+            ConsolePrinter.Message(UIMessages.InvalidCommand() + "\n");
+            ConsolePrinter.Message(UIMessages.EnterRowCol());
+            return false;
+        }
+
+        private void EndsGame()
+        {
+            ConsolePrinter.Message(UIMessages.Congratulations() + this.playerMoveCount + " moves.");
+            ConsolePrinter.Message(UIMessages.PleaseEnterYourName());
+            this.userInput = this.ReadConsoleInput();
+
+            this.highScore.AddResult(this.userInput, this.playerMoveCount);
+            this.ShowStatistics();
+
+            this.Restart();
         }
 
         private void Exit()
@@ -124,7 +146,7 @@ namespace BaloonsPop
             return Console.ReadLine().Replace(" ", "");
         }
 
-        private void ExecuteCommand(string currentCommand)
+        private void ExecuteMenuCommand(string currentCommand)
         {
             if (currentCommand == "top")
             {
@@ -149,18 +171,6 @@ namespace BaloonsPop
             this.gameField = new GameField();
             this.DrawField();
             this.userInput = string.Empty;
-        }
-
-        private bool IsCommandValid(string userInput)
-        {
-            if (userInput.Length > 1)
-            {
-                return true;
-            }
-
-            ConsolePrinter.Message(UIMessages.InvalidCommand() + "\n");
-            ConsolePrinter.Message(UIMessages.EnterRowCol());
-            return false;
         }
 
         private bool AreInRange(int row, int col)
