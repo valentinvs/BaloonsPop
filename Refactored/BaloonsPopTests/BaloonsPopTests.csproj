@@ -50,8 +50,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ConsoleOutput.cs" />
     <Compile Include="GameFieldTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ConsolePrinterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaloonsPop\BaloonsPop.csproj">
