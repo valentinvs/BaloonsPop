@@ -36,9 +36,9 @@ namespace BaloonsPop
                 return this.poppedBalloonsCount;
             }
 
-            private set
+            set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
                     throw new ArgumentException("Given value is <= 0!");
                 }

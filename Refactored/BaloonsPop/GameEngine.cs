@@ -49,7 +49,8 @@ namespace BaloonsPop
                         this.gameField.UpdateBalloonsPositions();
                         
                         this.playerMoveCount++;
-                        this.gameField.BallonsCount--;
+                        this.gameField.BallonsCount -= this.gameField.ClearedCellsCount;
+                        this.gameField.ClearedCellsCount = 0;
                     }
                     else
                     {
