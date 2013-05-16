@@ -54,7 +54,7 @@
 
                     if (!isBalloonPopped)
                     {
-                        ExecutePopCommand(rowIndex, colIndex);
+                        this.ExecutePopCommand(rowIndex, colIndex);
                         this.DrawField();
                     }
                     else
@@ -64,7 +64,7 @@
                 }
                 else
                 {
-                    EndsGame();
+                    this.EndsGame();
                 }
             }
         }
@@ -110,7 +110,6 @@
             }
 
             ConsolePrinter.Message(UIMessages.InvalidCommand() + "\n");
-            ConsolePrinter.Message(UIMessages.EnterRowCol());
             return false;
         }
 
@@ -129,7 +128,7 @@
         private void Exit()
         {
             ConsolePrinter.Message(UIMessages.GoodBye());
-            ConsolePrinter.Message("\nmoves: " + this.playerMoveCount.ToString() + " ");
+            ConsolePrinter.Message("\nmoves: " + this.playerMoveCount.ToString());
             ConsolePrinter.Message("\nballoons left: " + (this.gameField.BallonsCount - this.gameField.ClearedCellsCount).ToString() + "\n");
             Thread.Sleep(1000);
             Environment.Exit(0);
@@ -147,7 +146,7 @@
 
         private string ReadConsoleInput()
         {
-            return Console.ReadLine().Replace(" ", "");
+            return Console.ReadLine().Replace(" ", string.Empty);
         }
 
         private void ExecuteMenuCommand(string currentCommand)
@@ -165,7 +164,7 @@
             }
             else if (currentCommand == "exit")
             {
-                Exit();
+                this.Exit();
             }
         }
 

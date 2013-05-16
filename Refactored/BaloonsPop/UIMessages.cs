@@ -15,39 +15,39 @@ namespace BaloonsPop
             result.Append("Welcome to “Balloons Pops” game.");
             result.Append("Please try to pop the balloons. ");
             result.Append("Use 'top' to view the top scoreboard, ");
-            result.Append("'restart' to start a new game and 'exit' to quit the game.");
+            result.Append("'restart' to start a new game and 'exit' to quit the game.\n");
 
             return result.ToString();
         }
 
         public static string InvalidMove()
         {
-            return "Invalid move! The row and col should be in the given range.";
+            return "Invalid move! The row and col should be in the given range.\n";
         }
 
         public static string InvalidCommand()
         {
-            return "Invalid command!";
+            return "Invalid command!\n";
         }
 
         public static string IllegalMove()
         {
-            return "Cannot pop missing ballon!";
+            return "Cannot pop missing ballon!\n";
         }
 
         public static string GoodBye()
         {
-            return "Good Bye";
+            return "Good Bye!!!\n";
         }
 
         public static string EnterRowCol()
         {
-            return "Enter a row and column: ";
+            return "Enter a row and column: \n";
         }
 
         public static string Congratulations()
         {
-            return "Congratulations!!! You popped all balloons";
+            return "Congratulations!!! You popped all balloons in ";
         }
 
         public static string PleaseEnterYourName()

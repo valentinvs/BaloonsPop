@@ -9,7 +9,7 @@
     public class HighScore
     {
         private const int HighScorePrintLimit = 5;
-        private List<KeyValuePair<string, int>> highScoreRecords;
+        private readonly List<KeyValuePair<string, int>> highScoreRecords;
 
         public HighScore()
         {
@@ -45,6 +45,7 @@
                 }
             }
 
+            result.Append(Environment.NewLine);
             return result.ToString();
         }
 
