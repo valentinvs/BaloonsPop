@@ -55,20 +55,9 @@ namespace BaloonsPop
             return "Please enter your name for the top scoreboard: ";
         }
 
-        // errorMessage.cs
-        //private static void PrintInvalidMoveOrCommand()
-        //{
-        //    Console.WriteLine("Invalid move or command");
-        //    //userInput.Clear();
-        //    //GameEngine(userInput);
-        //}
-
-        // errorMessage.cs
-        //private static void InvalidMove()
-        //{
-        //    Console.WriteLine("Illegal move: cannot pop missing ballon!");
-        //    //userInput.Clear();
-        //    //GameEngine(userInput);
-        //}
+        public static string HighScore()
+        {
+            return "HighScore: ";
+        }
     }
 }

@@ -26,13 +26,23 @@
             this.SortResultsDescending();
 
             StringBuilder result = new StringBuilder();
+            int printLimit = this.highScoreRecords.Count;
+            if (this.highScoreRecords.Count > HighScorePrintLimit)
+            {
+                printLimit = 5;
+            }
 
-            for (int index = 0; index < HighScorePrintLimit; index++)
+            for (int index = 0; index < printLimit; index++)
             {
                 string playerName = this.highScoreRecords[index].Key;
                 string playerResult = this.highScoreRecords[index].Value.ToString();
 
                 result.Append(playerName).Append("->").AppendLine(playerResult);
+
+                if (index >= HighScorePrintLimit)
+                {
+                    break;
+                }
             }
 
             return result.ToString();

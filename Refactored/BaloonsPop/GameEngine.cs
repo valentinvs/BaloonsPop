@@ -25,43 +25,64 @@ namespace BaloonsPop
         public void Run()
         {
             ConsolePrinter.Message(UIMessages.Greetings());
+            this.InitializeGame();
+            this.GameLoop();
+           
+        }
 
+        private void GameLoop()
+        {
             while (true)
             {
-                this.DrawField();
-
                 // check if the game has ended
                 if (!(this.gameField.BallonsCount == 0))
                 {
                     ConsolePrinter.Message(UIMessages.EnterRowCol());
                     this.userInput = this.ReadConsoleInput();
-                    this.ParseCommand();
-                    this.ExecuteCommand(this.userInput);
 
-                    while (this.userInput.Length<2)
+                    while (!this.IsCommandValid(this.userInput))
                     {
-                        ConsolePrinter.Message(UIMessages.InvalidCommand()+"\n");
-                        ConsolePrinter.Message(UIMessages.EnterRowCol());
                         this.userInput = this.ReadConsoleInput();
                     }
 
-                    int rowIndex = int.Parse(this.userInput.ToString()[0].ToString());
-                    int colIndex = int.Parse(this.userInput.ToString()[1].ToString());
+                    this.ExecuteCommand(this.userInput);
 
-                    if (this.IsLegalMove(rowIndex, colIndex))
+                    int rowIndex;
+                    bool rowIsDigit = int.TryParse(this.userInput.ToString()[0].ToString(), out rowIndex);
+
+                    int colIndex;
+                    bool colIsDigit = int.TryParse(this.userInput.ToString()[1].ToString(), out colIndex);
+
+                    if (rowIsDigit && colIsDigit)
                     {
-                        Balloon selectedBalloon = this.gameField.BalloonsMatrix[rowIndex, colIndex];
+                        if (this.AreInRange(rowIndex, colIndex))
+                        {
+                            bool isBalloonPopped = this.gameField.BalloonsMatrix[rowIndex, colIndex].IsPopped;
 
-                        this.gameField.PopsEqualColoredBalloons(rowIndex, colIndex, selectedBalloon);
-                        this.gameField.UpdateBalloonsPositions();
-                        
-                        this.playerMoveCount++;
-                        this.gameField.BallonsCount -= this.gameField.ClearedCellsCount;
-                        this.gameField.ClearedCellsCount = 0;
+                            if (!isBalloonPopped)
+                            {
+                                Balloon selectedBalloon = this.gameField.BalloonsMatrix[rowIndex, colIndex];
+
+                                this.gameField.PopsEqualColoredBalloons(rowIndex, colIndex, selectedBalloon);
+                                this.gameField.UpdateBalloonsPositions();
+
+                                this.playerMoveCount++;
+                                this.gameField.BallonsCount -= this.gameField.ClearedCellsCount;
+                                this.gameField.ClearedCellsCount = 0;
+                            }
+                            else
+                            {
+                                ConsolePrinter.Message(UIMessages.IllegalMove() + "\n");
+                            }
+                        }
+                        else
+                        {
+                            ConsolePrinter.Message(UIMessages.InvalidMove() + "\n");
+                        }
                     }
                     else
                     {
-                        ConsolePrinter.Message(UIMessages.InvalidMove());
+                        ConsolePrinter.Message(UIMessages.InvalidCommand() + "\n");
                     }
                 }
                 else
@@ -76,27 +97,6 @@ namespace BaloonsPop
                     this.Restart();
                 }
             }
-        }
-
-        private bool IsLegalMove(int row, int col)
-        {
-            if (
-                ((row >= 0) && (row < GameField.FieldHeight)) ||
-                ((col >= 0) && col < GameField.FieldWidth))
-            {
-                return true;
-            }
-            else if (!this.gameField.BalloonsMatrix[row, col].IsPopped)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private void ShowStatistics()
-        {
-            ConsolePrinter.Message(this.highScore.ToString());
         }
 
         private void Exit()
@@ -119,11 +119,6 @@ namespace BaloonsPop
             this.gameField.PrintToConsole();
         }
 
-        private string ParseCommand()
-        {
-            return this.userInput.Replace(" ", "");
-        }
-
         private string ReadConsoleInput()
         {
             return Console.ReadLine().Replace(" ", "");
@@ -133,11 +128,13 @@ namespace BaloonsPop
         {
             if (currentCommand == "top")
             {
+                ConsolePrinter.Message(UIMessages.HighScore() + "\n");
                 this.ShowStatistics();
-                this.userInput = this.ReadConsoleInput();
+                this.GameLoop();
             }
             else if (currentCommand == "restart")
             {
+                Console.Clear();
                 this.Restart();
             }
             else if (currentCommand == "exit")
@@ -148,10 +145,40 @@ namespace BaloonsPop
 
         private void InitializeGame()
         {
-            Console.Clear();
             this.playerMoveCount = 0;
             this.gameField = new GameField();
+            this.DrawField();
             this.userInput = string.Empty;
+        }
+
+        private bool IsCommandValid(string userInput)
+        {
+            if (userInput.Length > 1)
+            {
+                return true;
+            }
+
+            ConsolePrinter.Message(UIMessages.InvalidCommand() + "\n");
+            ConsolePrinter.Message(UIMessages.EnterRowCol());
+            return false;
+        }
+
+        private bool AreInRange(int row, int col)
+        {
+            bool rowIsInRange = (row >= 0) && (row < GameField.FieldHeight);
+            bool colIsInRange = (col >= 0) && (col < GameField.FieldWidth);
+
+            if (rowIsInRange && colIsInRange)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void ShowStatistics()
+        {
+            ConsolePrinter.Message(this.highScore.ToString());
         }
     }
 }

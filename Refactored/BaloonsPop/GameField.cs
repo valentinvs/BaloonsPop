@@ -117,7 +117,7 @@ namespace BaloonsPop
         ///</summary>
         public void UpdateBalloonsPositions()
         {
-            Queue<Balloon> temp = new Queue<Balloon>();
+            Queue<Balloon> coloumnBalloonList = new Queue<Balloon>();
             
             int row;
             for (int col = 0; col < BalloonsMatrix.GetLength(1); col++)
@@ -130,7 +130,7 @@ namespace BaloonsPop
                     if (!this.balloons[row, col].IsPopped)
                     {
                         // before dot
-                        temp.Enqueue(this.balloons[row, col]);
+                        coloumnBalloonList.Enqueue(this.balloons[row, col]);
                         this.balloons[row, col].Pop();
                     }
                 }
@@ -140,11 +140,11 @@ namespace BaloonsPop
                 // (gravity effect)
                 row = BalloonsMatrix.GetLength(0);
 
-                while (temp.Count > 0)
+                while (coloumnBalloonList.Count > 0)
                 {
-                    this.balloons[--row, col] = (Balloon)temp.Dequeue().Clone();
+                    this.balloons[--row, col] = (Balloon)coloumnBalloonList.Dequeue().Clone();
                 }
-                temp.Clear();
+                coloumnBalloonList.Clear();
             }
         }
 
@@ -163,7 +163,6 @@ namespace BaloonsPop
             {
                 isEqualColoredBalloon = (this.balloons[row, col].Color == selectedBalloon.Color);
             }
-
 
             if (isEqualColoredBalloon)
             {
