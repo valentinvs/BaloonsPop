@@ -118,7 +118,7 @@
         {
             ConsolePrinter.Message(UIMessages.Congratulations() + this.playerMoveCount + " moves.");
             ConsolePrinter.Message(UIMessages.PleaseEnterYourName());
-            this.userInput = this.ReadConsoleInput();
+            this.userInput = Console.ReadLine();
 
             this.highScore.AddResult(this.userInput, this.playerMoveCount);
             this.ShowStatistics();
@@ -137,7 +137,6 @@
 
         private void Restart()
         {
-            this.InitializeGame();
             this.Run();
         }
 
