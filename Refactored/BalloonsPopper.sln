@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaloonsPop", "BaloonsPop\BaloonsPop.csproj", "{E8DA4142-A942-472A-A892-E5D5E47946A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalloonsPop", "BaloonsPop\BalloonsPop.csproj", "{E8DA4142-A942-472A-A892-E5D5E47946A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaloonsPopTests", "BaloonsPopTests\BaloonsPopTests.csproj", "{63F4721F-73F9-420C-B391-E79F03B754EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalloonsPopTests", "BaloonsPopTests\BalloonsPopTests.csproj", "{63F4721F-73F9-420C-B391-E79F03B754EA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{A39D88F8-2539-4B76-9956-3F9BEB00A97F}"
 EndProject
