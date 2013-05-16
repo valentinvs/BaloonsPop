@@ -27,7 +27,7 @@ namespace BaloonsPop
             ConsolePrinter.Message(UIMessages.Greetings());
             this.InitializeGame();
             this.GameLoop();
-           
+
         }
 
         private void GameLoop()
@@ -40,42 +40,26 @@ namespace BaloonsPop
                     ConsolePrinter.Message(UIMessages.EnterRowCol());
                     this.userInput = this.ReadConsoleInput();
 
-                    int rowIndex;
-                    bool rowIsDigit = int.TryParse(this.userInput.ToString()[0].ToString(), out rowIndex);
-
-                    int colIndex;
-                    bool colIsDigit = int.TryParse(this.userInput.ToString()[1].ToString(), out colIndex);
-
                     while (!this.IsCommandValid(this.userInput))
                     {
                         this.userInput = this.ReadConsoleInput();
                     }
 
                     this.ExecuteMenuCommand(this.userInput);
+                    
+                    int rowIndex = int.Parse(this.userInput[0].ToString());
+                    int colIndex = int.Parse(this.userInput[0].ToString());
 
-                    if (rowIsDigit && colIsDigit)
+                    bool isBalloonPopped = this.gameField.BalloonsMatrix[rowIndex, colIndex].IsPopped;
+
+                    if (!isBalloonPopped)
                     {
-                        if (this.AreInRange(rowIndex, colIndex))
-                        {
-                            bool isBalloonPopped = this.gameField.BalloonsMatrix[rowIndex, colIndex].IsPopped;
-
-                            if (!isBalloonPopped)
-                            {
-                                ExecutePopCommand(rowIndex, colIndex);
-                            }
-                            else
-                            {
-                                ConsolePrinter.Message(UIMessages.IllegalMove() + "\n");
-                            }
-                        }
-                        else
-                        {
-                            ConsolePrinter.Message(UIMessages.InvalidMove() + "\n");
-                        }
+                        ExecutePopCommand(rowIndex, colIndex);
+                        this.DrawField();
                     }
                     else
                     {
-                        ConsolePrinter.Message(UIMessages.InvalidCommand() + "\n");
+                        ConsolePrinter.Message(UIMessages.IllegalMove() + "\n");
                     }
                 }
                 else
@@ -101,7 +85,19 @@ namespace BaloonsPop
         {
             if (userInput.Length > 1)
             {
-                return true;
+                int rowIndex;
+                bool rowIsDigit = int.TryParse(this.userInput.ToString()[0].ToString(), out rowIndex);
+
+                int colIndex;
+                bool colIsDigit = int.TryParse(this.userInput.ToString()[1].ToString(), out colIndex);
+
+                if (rowIsDigit && colIsDigit)
+                {
+                    if (this.AreInRange(rowIndex, colIndex))
+                    {
+                        return true;
+                    }
+                }
             }
 
             ConsolePrinter.Message(UIMessages.InvalidCommand() + "\n");
