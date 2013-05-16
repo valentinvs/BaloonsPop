@@ -31,11 +31,11 @@ namespace BaloonsPopTests
             int expected = GameField.FieldHeight * GameField.FieldWidth;
             int actual = 0;
 
-            for (int row = 0; row < gameField1.BalloonsMatrix.GetLength(0); row++)
+            for (int row = 0; row < gameField1.Balloons.GetLength(0); row++)
             {
-                for (int col = 0; col < gameField1.BalloonsMatrix.GetLength(1); col++)
+                for (int col = 0; col < gameField1.Balloons.GetLength(1); col++)
                 {
-                    if (gameField1.BalloonsMatrix[row, col] == gameField2.BalloonsMatrix[row, col])
+                    if (gameField1.Balloons[row, col] == gameField2.Balloons[row, col])
                     {
                         actual++;
                     }

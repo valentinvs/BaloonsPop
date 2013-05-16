@@ -50,7 +50,7 @@ namespace BaloonsPop
                     int rowIndex = int.Parse(this.userInput[0].ToString());
                     int colIndex = int.Parse(this.userInput[0].ToString());
 
-                    bool isBalloonPopped = this.gameField.BalloonsMatrix[rowIndex, colIndex].IsPopped;
+                    bool isBalloonPopped = this.gameField.Balloons[rowIndex, colIndex].IsPopped;
 
                     if (!isBalloonPopped)
                     {
@@ -71,7 +71,7 @@ namespace BaloonsPop
 
         private void ExecutePopCommand(int rowIndex, int colIndex)
         {
-            Balloon selectedBalloon = this.gameField.BalloonsMatrix[rowIndex, colIndex];
+            Balloon selectedBalloon = this.gameField.Balloons[rowIndex, colIndex];
 
             this.gameField.PopsEqualColoredBalloons(rowIndex, colIndex, selectedBalloon);
             this.gameField.UpdateBalloonsPositions();

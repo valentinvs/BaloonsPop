@@ -22,7 +22,7 @@ namespace BaloonsPop
 
         public GameField()
         {
-            this.BalloonsMatrix = new Balloon[FieldHeight, FieldWidth];
+            this.Balloons = new Balloon[FieldHeight, FieldWidth];
             this.BallonsCount = FieldHeight * FieldWidth;
             this.poppedBalloonsCount = 0;
 
@@ -65,7 +65,7 @@ namespace BaloonsPop
             }
         }
 
-        public Balloon[,] BalloonsMatrix
+        public Balloon[,] Balloons
         {
             get
             {
@@ -120,11 +120,11 @@ namespace BaloonsPop
             Queue<Balloon> coloumnBalloonList = new Queue<Balloon>();
             
             int row;
-            for (int col = 0; col < BalloonsMatrix.GetLength(1); col++)
+            for (int col = 0; col < Balloons.GetLength(1); col++)
             {
                 //int row = FieldHeight - 1;
 
-                for (row = BalloonsMatrix.GetLength(0) - 1; row >= 0; row--)
+                for (row = Balloons.GetLength(0) - 1; row >= 0; row--)
                 {
                     // if balloon is found, push it into the queue
                     if (!this.balloons[row, col].IsPopped)
@@ -138,7 +138,7 @@ namespace BaloonsPop
                 // foreach column, balloons are repositioned from
                 // the bottom row to the top row
                 // (gravity effect)
-                row = BalloonsMatrix.GetLength(0);
+                row = Balloons.GetLength(0);
 
                 while (coloumnBalloonList.Count > 0)
                 {
