@@ -60,6 +60,11 @@ namespace BaloonsPop
 
         public char Visualisation { get; private set; }
         public ColorEnum Color { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Return whether the balloon is Poped .</returns>
         public bool IsPopped { get; private set; }
     }
 }

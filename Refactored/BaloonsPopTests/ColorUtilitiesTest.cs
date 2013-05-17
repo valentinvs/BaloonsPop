@@ -15,7 +15,7 @@
             ConsoleColor acual = ColorUtilities.MatchColor(color);
             ConsoleColor expected = ConsoleColor.Red;
 
-            Assert.AreEqual(acual, expected);
+            Assert.AreEqual(expected, acual);
         }
 
         [TestMethod]
@@ -26,7 +26,7 @@
             ConsoleColor acual = ColorUtilities.MatchColor(color);
             ConsoleColor expected = ConsoleColor.Green;
 
-            Assert.AreEqual(acual, expected);
+            Assert.AreEqual(expected, acual);
         }
 
         [TestMethod]
@@ -37,7 +37,7 @@
             ConsoleColor acual = ColorUtilities.MatchColor(color);
             ConsoleColor expected = ConsoleColor.Blue;
 
-            Assert.AreEqual(acual, expected);
+            Assert.AreEqual(expected, acual);
         }
 
         [TestMethod]
@@ -48,7 +48,7 @@
             ConsoleColor acual = ColorUtilities.MatchColor(color);
             ConsoleColor expected = ConsoleColor.White;
 
-            Assert.AreEqual(acual, expected);
+            Assert.AreEqual(expected, acual);
         }
 
         [TestMethod]
@@ -59,7 +59,7 @@
             ConsoleColor acual = ColorUtilities.MatchColor(color);
             ConsoleColor expected = ConsoleColor.Yellow;
 
-            Assert.AreEqual(acual, expected);
+            Assert.AreEqual(expected, acual);
         }
     }
 }
