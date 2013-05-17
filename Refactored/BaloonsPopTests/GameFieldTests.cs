@@ -58,6 +58,17 @@ namespace BaloonsPopTests
             Assert.IsTrue(expected);
         }
 
+        //[TestMethod]
+        //// [ExpectedException(typeof(ArgumentException))]
+        //public void GameFieldBalloonsCountTest()
+        //{
+        //    GameField gameField = new GameField();
+        //    gameField.BalloonsMatrix[2, 2].Pop();
+        //    gameField.UpdateBalloonsPositions();
+        //    bool expected = gameField.BallonsCount < GameField.FieldHeight * GameField.FieldWidth;
+        //    Assert.IsTrue(expected);
+        //}
+
         // Example test
         [TestMethod]
         // [ExpectedException(typeof(ArgumentException))]
