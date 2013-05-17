@@ -4,7 +4,6 @@
     using System.Threading;
     using System.Collections.Generic;
 
-
     public class GameEngine
     {
         private readonly HighScore highScore;
@@ -117,10 +116,15 @@
         private void EndsGame()
         {
             ConsolePrinter.Message(UIMessages.Congratulations() + this.playerMoveCount + " moves.");
-            ConsolePrinter.Message(UIMessages.PleaseEnterYourName());
-            this.userInput = Console.ReadLine();
             this.IsCurrentRecordTop(this.playerMoveCount);
-            this.highScore.AddResult(this.userInput, this.playerMoveCount);
+
+            if (this.highScore.IsTopResult(this.playerMoveCount))
+            {
+                ConsolePrinter.Message(UIMessages.PleaseEnterYourName());
+                this.userInput = Console.ReadLine();
+                this.highScore.AddResult(this.userInput, this.playerMoveCount);
+            }
+            
             this.ShowStatistics();
             
             this.Restart();

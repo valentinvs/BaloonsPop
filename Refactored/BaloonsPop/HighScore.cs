@@ -26,8 +26,49 @@
 
         public void AddResult(string playerName, int playerResult)
         {
-            this.GetLastRecord();
+            if (this.TopPlayers.Count >= 5)
+            {
+                KeyValuePair<string, int> lastRecord = this.GetLastRecord();
+                this.highScoreRecords.Remove(lastRecord);
+            }
+
             this.highScoreRecords.Add(new KeyValuePair<string, int>(playerName, playerResult));
+
+            this.TopPlayers.Sort(SortDescending);
+        }
+
+        static int SortDescending(KeyValuePair<string, int> firstPair, KeyValuePair<string, int> secondPair)
+        {
+            return firstPair.Value.CompareTo(secondPair.Value);
+        }
+
+        private void SortRecords()
+        {
+            var playersList = this.TopPlayers;
+
+            for (int mainIndex = 0; mainIndex < playersList.Count - 1; mainIndex++)
+            {
+                for (int secondaryIndex = 0; secondaryIndex < playersList.Count; secondaryIndex++)
+                {
+                    if (playersList[mainIndex].Value >= playersList[secondaryIndex].Value)
+                    {
+                        var oldRecord = playersList[mainIndex];
+                        playersList[secondaryIndex] = playersList[mainIndex];
+                        playersList[mainIndex] = oldRecord;
+                    }
+                }
+            }
+        }
+
+        public bool IsTopResult(int playerMoveCount)
+        {
+            if (this.TopPlayers.Count < 5 ||
+                playerMoveCount >= this.GetLastRecord().Value)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public KeyValuePair<string, int> GetLastRecord()
@@ -37,8 +78,6 @@
 
         public override string ToString()
         {
-            this.SortResultsDescending();
-
             StringBuilder result = new StringBuilder();
             int printLimit = this.highScoreRecords.Count;
             if (this.highScoreRecords.Count > HighScorePrintLimit)
@@ -65,7 +104,7 @@
 
         private void SortResultsDescending()
         {
-            this.highScoreRecords.OrderByDescending(record => record.Value).ThenBy(record => record.Key);
+            var something = this.highScoreRecords.OrderBy(record => record.Value);
         }
     }
 }
