@@ -65,10 +65,37 @@
             highScore.AddResult("Petkan", 26);
             highScore.AddResult("Jorkan", 18);
 
-            Assert.IsTrue(AreSortedAscending(highScore.TopPlayers));
+            Assert.IsTrue(AreSortedDescending(highScore.TopPlayers));
         }
 
-        private bool AreSortedAscending(List<KeyValuePair<string, int>> records)
+        [TestMethod]
+        public void IsTopResult()
+        {
+            HighScore highScore = new HighScore();
+            highScore.AddResult("Pesho", 25);
+            highScore.AddResult("Pesho", 20);
+            highScore.AddResult("Gosho", 15);
+            highScore.AddResult("Petkan", 26);
+            highScore.AddResult("Jorkan", 18);
+
+            Assert.IsTrue(AreSortedDescending(highScore.TopPlayers));
+        }
+
+        [TestMethod]
+        public void AddingNotTopResult()
+        {
+            HighScore highScore = new HighScore();
+            highScore.AddResult("Pesho", 25);
+            highScore.AddResult("Pesho", 20);
+            highScore.AddResult("Gosho", 15);
+            highScore.AddResult("Petkan", 26);
+            highScore.AddResult("Jorkan", 18);
+            highScore.AddResult("NotTopResult", 50);
+
+            CollectionAssert.Contains(highScore.TopPlayers, new KeyValuePair<string, int>("NotTopResult", 50));
+        }
+
+        private bool AreSortedDescending(List<KeyValuePair<string, int>> records)
         {
             for (int index = 1; index < records.Count; index++)
             {

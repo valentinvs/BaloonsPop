@@ -34,10 +34,10 @@
 
             this.highScoreRecords.Add(new KeyValuePair<string, int>(playerName, playerResult));
 
-            this.TopPlayers.Sort(SortDescending);
+            this.TopPlayers.Sort(DescendingComparer);
         }
 
-        static int SortDescending(KeyValuePair<string, int> firstPair, KeyValuePair<string, int> secondPair)
+        static int DescendingComparer(KeyValuePair<string, int> firstPair, KeyValuePair<string, int> secondPair)
         {
             return firstPair.Value.CompareTo(secondPair.Value);
         }
@@ -100,11 +100,6 @@
 
             result.Append(Environment.NewLine);
             return result.ToString();
-        }
-
-        private void SortResultsDescending()
-        {
-            var something = this.highScoreRecords.OrderBy(record => record.Value);
         }
     }
 }
