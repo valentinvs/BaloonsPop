@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BaloonsPop;
+using System.IO;
+using System.Text;
 
 namespace BaloonsPopTests
 {
@@ -9,7 +11,6 @@ namespace BaloonsPopTests
     {
         // Example test
         [TestMethod]
-        // [ExpectedException(typeof(ArgumentException))]
         public void GameFieldWidthTest()
         {
             int expectedFieldWidth = 10;
@@ -21,7 +22,6 @@ namespace BaloonsPopTests
 
         // Example test
         [TestMethod]
-        // [ExpectedException(typeof(ArgumentException))]
         public void GameFieldPopBalloonTest()
         {
             GameField gameField = new GameField();
@@ -32,7 +32,6 @@ namespace BaloonsPopTests
         }
 
         [TestMethod]
-        // [ExpectedException(typeof(ArgumentException))]
         public void PopsEqualColoredBalloonsTest()
         {
             GameField gameField = new GameField();
@@ -48,7 +47,6 @@ namespace BaloonsPopTests
         }
 
         [TestMethod]
-        // [ExpectedException(typeof(ArgumentException))]
         public void GameFieldIsPoppedTest()
         {
             GameField gameField = new GameField();
@@ -69,9 +67,44 @@ namespace BaloonsPopTests
         //    Assert.IsTrue(expected);
         //}
 
+        [TestMethod]
+        public void GameFieldPrintToConsole()
+        {
+            StreamWriter writer = new StreamWriter("..\\..\\out.txt");
+            Console.SetOut(writer);
+
+            GameField gameField = new GameField();
+            gameField.PrintToConsole();
+            writer.Close();
+
+            StreamReader reader = new StreamReader("..\\..\\out.txt");
+            //StringBuilder actual = new StringBuilder();
+            string actual = string.Empty;
+            string line;
+            //do
+            //{
+                line = reader.ReadToEnd();
+                actual += (line);
+            //} while (line != null);
+
+            reader.Close();
+
+            string expected = 
+@"    0 1 2 3 4 5 6 7 8 9
+   ---------------------
+0 | O O O O O O O O O O | 
+1 | O O O O O O O O O O | 
+2 | O O O O O O O O O O | 
+3 | O O O O O O O O O O | 
+4 | O O O O O O O O O O | 
+   ---------------------
+";
+
+            Assert.AreEqual(expected, actual.ToString());
+        }
+
         // Example test
         [TestMethod]
-        // [ExpectedException(typeof(ArgumentException))]
         public void GameFieldInitializeMethod()
         {
             GameField gameField1 = new GameField();
