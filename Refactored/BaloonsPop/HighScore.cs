@@ -42,28 +42,10 @@
             return firstPair.Value.CompareTo(secondPair.Value);
         }
 
-        private void SortRecords()
-        {
-            var playersList = this.TopPlayers;
-
-            for (int mainIndex = 0; mainIndex < playersList.Count - 1; mainIndex++)
-            {
-                for (int secondaryIndex = 0; secondaryIndex < playersList.Count; secondaryIndex++)
-                {
-                    if (playersList[mainIndex].Value >= playersList[secondaryIndex].Value)
-                    {
-                        var oldRecord = playersList[mainIndex];
-                        playersList[secondaryIndex] = playersList[mainIndex];
-                        playersList[mainIndex] = oldRecord;
-                    }
-                }
-            }
-        }
-
         public bool IsTopResult(int playerMoveCount)
         {
             if (this.TopPlayers.Count < 5 ||
-                playerMoveCount >= this.GetLastRecord().Value)
+                playerMoveCount <= this.GetLastRecord().Value)
             {
                 return true;
             }
@@ -80,10 +62,6 @@
         {
             StringBuilder result = new StringBuilder();
             int printLimit = this.highScoreRecords.Count;
-            if (this.highScoreRecords.Count > HighScorePrintLimit)
-            {
-                printLimit = 5;
-            }
 
             for (int index = 0; index < printLimit; index++)
             {

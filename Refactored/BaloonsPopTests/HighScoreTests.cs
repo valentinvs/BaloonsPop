@@ -4,6 +4,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using BaloonsPop;
     using System.Collections.Generic;
+    using System.Text;
 
 
     [TestClass]
@@ -78,7 +79,7 @@
             highScore.AddResult("Petkan", 26);
             highScore.AddResult("Jorkan", 18);
 
-            Assert.IsTrue(AreSortedDescending(highScore.TopPlayers));
+            Assert.IsTrue(highScore.IsTopResult(5));
         }
 
         [TestMethod]
@@ -93,6 +94,35 @@
             highScore.AddResult("NotTopResult", 50);
 
             CollectionAssert.Contains(highScore.TopPlayers, new KeyValuePair<string, int>("NotTopResult", 50));
+        }
+
+        [TestMethod]
+        public void PrintHighScoreTest()
+        {
+            HighScore highScore = new HighScore();
+            highScore.AddResult("Pesho", 25);
+            highScore.AddResult("Pesho", 20);
+            highScore.AddResult("Gosho", 15);
+            highScore.AddResult("Petkan", 26);
+            highScore.AddResult("Jorkan", 18);
+            highScore.AddResult("NotTopResult", 50);
+
+            StringBuilder result = new StringBuilder();
+            int printLimit = highScore.TopPlayers.Count;
+
+            for (int index = 0; index < printLimit; index++)
+            {
+                string playerName = highScore.TopPlayers[index].Key;
+                string playerResult = highScore.TopPlayers[index].Value.ToString();
+
+                result.Append(playerName).Append("->").AppendLine(playerResult);
+            }
+
+            result.Append(Environment.NewLine);
+            string actual =  result.ToString();
+
+            string expected = highScore.ToString();
+            Assert.AreEqual(expected, actual);
         }
 
         private bool AreSortedDescending(List<KeyValuePair<string, int>> records)
