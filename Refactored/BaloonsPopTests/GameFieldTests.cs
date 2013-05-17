@@ -25,9 +25,9 @@ namespace BaloonsPopTests
         public void GameFieldPopBalloonTest()
         {
             GameField gameField = new GameField();
-            gameField.BalloonsMatrix[2, 2].Pop();
+            gameField.Balloons[2, 2].Pop();
 
-            bool expected = gameField.BalloonsMatrix[2, 2].IsPopped;
+            bool expected = gameField.Balloons[2, 2].IsPopped;
             Assert.IsTrue(expected);
         }
 
@@ -35,12 +35,12 @@ namespace BaloonsPopTests
         public void PopsEqualColoredBalloonsTest()
         {
             GameField gameField = new GameField();
-            gameField.BalloonsMatrix[1, 0].Pop();
+            gameField.Balloons[1, 0].Pop();
 
-            gameField.PopsEqualColoredBalloons(1, 0, gameField.BalloonsMatrix[1, 0]);
+            gameField.PopsEqualColoredBalloons(1, 0, gameField.Balloons[1, 0]);
             gameField.UpdateBalloonsPositions();
 
-            char actual = gameField.BalloonsMatrix[0, 0].GetBalloonChar();
+            char actual = gameField.Balloons[0, 0].GetBalloonChar();
             char expected = ' ';
 
             Assert.AreEqual(expected, actual);
@@ -50,9 +50,9 @@ namespace BaloonsPopTests
         public void GameFieldIsPoppedTest()
         {
             GameField gameField = new GameField();
-            gameField.BalloonsMatrix[2, 2].Pop();
+            gameField.Balloons[2, 2].Pop();
 
-            bool expected = gameField.BalloonsMatrix[2, 2].GetBalloonChar() == ' ';
+            bool expected = gameField.Balloons[2, 2].GetBalloonChar() == ' ';
             Assert.IsTrue(expected);
         }
 
