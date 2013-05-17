@@ -8,22 +8,22 @@ namespace BaloonsPop
 {
     public static class ColorUtilities
     {
-        public static ConsoleColor MatchColor(Color color)
+        public static ConsoleColor MatchColor(ColorEnum color)
         {
             ConsoleColor matchColor;
 
             switch (color)
             {
-                case Color.Blue:
+                case ColorEnum.Blue:
                     matchColor = ConsoleColor.Blue;
                     break;
-                case Color.Green:
+                case ColorEnum.Green:
                     matchColor = ConsoleColor.Green;
                     break;
-                case Color.Red:
+                case ColorEnum.Red:
                     matchColor = ConsoleColor.Red;
                     break;
-                case Color.Yellow:
+                case ColorEnum.Yellow:
                     matchColor = ConsoleColor.Yellow;
                     break;
                 default:

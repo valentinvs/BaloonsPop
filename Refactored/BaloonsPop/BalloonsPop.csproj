@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Balloon.cs" />
-    <Compile Include="Color.cs" />
+    <Compile Include="ColorEnum.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="GameField.cs" />
     <Compile Include="HighScore.cs" />
