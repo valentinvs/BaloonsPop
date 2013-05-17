@@ -12,12 +12,50 @@ namespace BaloonsPopTests
         // [ExpectedException(typeof(ArgumentException))]
         public void GameFieldWidthTest()
         {
-            GameField gameField = new GameField();
             int expectedFieldWidth = 10;
             int actualFieldWidth = GameField.FieldWidth;
 
             Assert.AreEqual(expectedFieldWidth, actualFieldWidth);
             Assert.IsTrue(expectedFieldWidth == actualFieldWidth);
+        }
+
+        // Example test
+        [TestMethod]
+        // [ExpectedException(typeof(ArgumentException))]
+        public void GameFieldPopBalloonTest()
+        {
+            GameField gameField = new GameField();
+            gameField.BalloonsMatrix[2, 2].Pop();
+
+            bool expected = gameField.BalloonsMatrix[2, 2].IsPopped;
+            Assert.IsTrue(expected);
+        }
+
+        [TestMethod]
+        // [ExpectedException(typeof(ArgumentException))]
+        public void PopsEqualColoredBalloonsTest()
+        {
+            GameField gameField = new GameField();
+            gameField.BalloonsMatrix[1, 0].Pop();
+
+            gameField.PopsEqualColoredBalloons(1, 0, gameField.BalloonsMatrix[1, 0]);
+            gameField.UpdateBalloonsPositions();
+
+            char actual = gameField.BalloonsMatrix[0, 0].GetBalloonChar();
+            char expected = ' ';
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        // [ExpectedException(typeof(ArgumentException))]
+        public void GameFieldIsPoppedTest()
+        {
+            GameField gameField = new GameField();
+            gameField.BalloonsMatrix[2, 2].Pop();
+
+            bool expected = gameField.BalloonsMatrix[2, 2].GetBalloonChar() == ' ';
+            Assert.IsTrue(expected);
         }
 
         // Example test
