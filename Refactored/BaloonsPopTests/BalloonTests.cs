@@ -16,5 +16,16 @@ namespace BaloonsPopTests
 
             Assert.IsTrue(expected);
         }
+
+
+        [TestMethod]
+        public void GetBallonCharTest_NotPoped()
+        {
+            var color = ColorEnum.Blue;
+            Balloon balloon = new Balloon(color);
+            char expected = 'O';
+            char actual = balloon.GetBalloonChar();
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
