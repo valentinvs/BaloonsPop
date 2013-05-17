@@ -8,6 +8,11 @@ namespace BaloonsPop
 {
     public static class ColorUtilities
     {
+        /// <summary>
+        /// Convert ColorEnum to ConsoleColor color.
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns>ConsoleColor</returns>
         public static ConsoleColor MatchColor(ColorEnum color)
         {
             ConsoleColor matchColor;
