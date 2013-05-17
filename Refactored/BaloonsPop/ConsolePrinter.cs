@@ -12,6 +12,5 @@ namespace BaloonsPop
         {
             Console.Write(message);
         }
-
     }
 }

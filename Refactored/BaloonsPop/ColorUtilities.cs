@@ -6,24 +6,29 @@ using System.Threading.Tasks;
 
 namespace BaloonsPop
 {
-    public static class Utilities
+    public static class ColorUtilities
     {
-        public static ConsoleColor MatchColor(Color color)
+        /// <summary>
+        /// Convert ColorEnum to ConsoleColor color.
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns>ConsoleColor</returns>
+        public static ConsoleColor MatchColor(ColorEnum color)
         {
             ConsoleColor matchColor;
 
             switch (color)
             {
-                case Color.Blue:
+                case ColorEnum.Blue:
                     matchColor = ConsoleColor.Blue;
                     break;
-                case Color.Green:
+                case ColorEnum.Green:
                     matchColor = ConsoleColor.Green;
                     break;
-                case Color.Red:
+                case ColorEnum.Red:
                     matchColor = ConsoleColor.Red;
                     break;
-                case Color.Yellow:
+                case ColorEnum.Yellow:
                     matchColor = ConsoleColor.Yellow;
                     break;
                 default:

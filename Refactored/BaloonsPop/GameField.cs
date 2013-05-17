@@ -96,15 +96,15 @@ namespace BaloonsPop
             // gameField set method
 
             //helps to generate random color
-            Array colors = Enum.GetValues(typeof(Color));
-            Color balloonColor;
+            Array colors = Enum.GetValues(typeof(ColorEnum));
+            ColorEnum balloonColor;
 
             for (int row = 0; row < FieldHeight; row++)
             {
                 for (int col = 0; col < FieldWidth; col++)
                 {
                     int randomNumber = RandomNumberGenerator.Instance.Next(0, colors.Length - 1);
-                    balloonColor = (Color)colors.GetValue(randomNumber);
+                    balloonColor = (ColorEnum)colors.GetValue(randomNumber);
                     this.balloons[row, col] = new Balloon(balloonColor);
                 }
             }
@@ -213,7 +213,7 @@ namespace BaloonsPop
 
                 for (int column = 0; column < FieldWidth; column++)
                 {
-                    Console.ForegroundColor = Utilities.MatchColor(this.balloons[row, column].Color);
+                    Console.ForegroundColor = ColorUtilities.MatchColor(this.balloons[row, column].Color);
                     Console.Write(this.balloons[row, column].GetBalloonChar() + " ");
                 }
 

@@ -1,19 +1,17 @@
 ﻿namespace BaloonsPop
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading;
-    using System.Threading.Tasks;
+    using System.Collections.Generic;
 
     public class GameEngine
     {
+        private readonly HighScore highScore;
+        private readonly string[] menuCommands;
+
         private int playerMoveCount;
         private GameField gameField;
-        private readonly HighScore highScore;
         private string userInput;
-        private readonly string[] menuCommands;
 
         public GameEngine()
         {
@@ -30,6 +28,8 @@
             this.InitializeGame();
             this.GameLoop();
         }
+
+        #region Private Methods
 
         private void GameLoop()
         {
@@ -116,13 +116,30 @@
         private void EndsGame()
         {
             ConsolePrinter.Message(UIMessages.Congratulations() + this.playerMoveCount + " moves.");
-            ConsolePrinter.Message(UIMessages.PleaseEnterYourName());
-            this.userInput = Console.ReadLine();
+            this.IsCurrentRecordTop(this.playerMoveCount);
 
-            this.highScore.AddResult(this.userInput, this.playerMoveCount);
+            if (this.highScore.IsTopResult(this.playerMoveCount))
+            {
+                ConsolePrinter.Message(UIMessages.PleaseEnterYourName());
+                this.userInput = Console.ReadLine();
+                this.highScore.AddResult(this.userInput, this.playerMoveCount);
+            }
+            
             this.ShowStatistics();
-
+            
             this.Restart();
+        }
+
+        private bool IsCurrentRecordTop(int playerMoveCount)
+        {
+            KeyValuePair<string, int> lastRecord = this.highScore.GetLastRecord();
+
+            if (playerMoveCount >= lastRecord.Value)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void Exit()
@@ -193,5 +210,7 @@
         {
             ConsolePrinter.Message(this.highScore.ToString());
         }
+
+        #endregion
     }
 }

@@ -15,7 +15,7 @@ namespace BaloonsPop
         /// <summary>Initializes a new instance of the <see cref="Balloon"/> class.
         /// </summary>
         /// <param name="color">The balloon color.</param>
-        public Balloon(Color color)
+        public Balloon(ColorEnum color)
         {
             this.Color = color;
             this.IsPopped = false;
@@ -59,7 +59,12 @@ namespace BaloonsPop
         }
 
         public char Visualisation { get; private set; }
-        public Color Color { get; private set; }
+        public ColorEnum Color { get; private set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Return whether the balloon is Poped .</returns>
         public bool IsPopped { get; private set; }
     }
 }

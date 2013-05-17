@@ -3,7 +3,7 @@
     /// <summary>
     /// The four default Color to the game plus White.
     /// </summary>
-    public enum Color
+    public enum ColorEnum
     {
         Red,
         Green,

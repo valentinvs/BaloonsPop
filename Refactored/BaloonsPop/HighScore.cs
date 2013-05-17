@@ -16,21 +16,52 @@
             this.highScoreRecords = new List<KeyValuePair<string, int>>();
         }
 
+        public List<KeyValuePair<string, int>> TopPlayers
+        {
+            get
+            {
+                return this.highScoreRecords;
+            }
+        }
+
         public void AddResult(string playerName, int playerResult)
         {
+            if (this.TopPlayers.Count >= 5)
+            {
+                KeyValuePair<string, int> lastRecord = this.GetLastRecord();
+                this.highScoreRecords.Remove(lastRecord);
+            }
+
             this.highScoreRecords.Add(new KeyValuePair<string, int>(playerName, playerResult));
+
+            this.TopPlayers.Sort(DescendingComparer);
+        }
+
+        static int DescendingComparer(KeyValuePair<string, int> firstPair, KeyValuePair<string, int> secondPair)
+        {
+            return firstPair.Value.CompareTo(secondPair.Value);
+        }
+
+        public bool IsTopResult(int playerMoveCount)
+        {
+            if (this.TopPlayers.Count < 5 ||
+                playerMoveCount <= this.GetLastRecord().Value)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public KeyValuePair<string, int> GetLastRecord()
+        {
+            return this.highScoreRecords.LastOrDefault();
         }
 
         public override string ToString()
         {
-            this.SortResultsDescending();
-
             StringBuilder result = new StringBuilder();
             int printLimit = this.highScoreRecords.Count;
-            if (this.highScoreRecords.Count > HighScorePrintLimit)
-            {
-                printLimit = 5;
-            }
 
             for (int index = 0; index < printLimit; index++)
             {
@@ -47,11 +78,6 @@
 
             result.Append(Environment.NewLine);
             return result.ToString();
-        }
-
-        private void SortResultsDescending()
-        {
-            this.highScoreRecords.OrderByDescending(record => record.Value).ThenBy(record => record.Key);
         }
     }
 }
