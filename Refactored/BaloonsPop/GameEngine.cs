@@ -2,6 +2,8 @@
 {
     using System;
     using System.Threading;
+    using System.Collections.Generic;
+
 
     public class GameEngine
     {
@@ -117,11 +119,23 @@
             ConsolePrinter.Message(UIMessages.Congratulations() + this.playerMoveCount + " moves.");
             ConsolePrinter.Message(UIMessages.PleaseEnterYourName());
             this.userInput = Console.ReadLine();
-
+            this.IsCurrentRecordTop(this.playerMoveCount);
             this.highScore.AddResult(this.userInput, this.playerMoveCount);
             this.ShowStatistics();
-
+            
             this.Restart();
+        }
+
+        private bool IsCurrentRecordTop(int playerMoveCount)
+        {
+            KeyValuePair<string, int> lastRecord = this.highScore.GetLastRecord();
+
+            if (playerMoveCount >= lastRecord.Value)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void Exit()

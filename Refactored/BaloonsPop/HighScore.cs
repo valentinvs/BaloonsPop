@@ -16,9 +16,23 @@
             this.highScoreRecords = new List<KeyValuePair<string, int>>();
         }
 
+        public List<KeyValuePair<string, int>> TopPlayers
+        {
+            get
+            {
+                return this.highScoreRecords;
+            }
+        }
+
         public void AddResult(string playerName, int playerResult)
         {
+            this.GetLastRecord();
             this.highScoreRecords.Add(new KeyValuePair<string, int>(playerName, playerResult));
+        }
+
+        public KeyValuePair<string, int> GetLastRecord()
+        {
+            return this.highScoreRecords.LastOrDefault();
         }
 
         public override string ToString()
