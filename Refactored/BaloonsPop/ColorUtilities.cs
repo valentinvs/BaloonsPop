@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BaloonsPop
+﻿namespace BaloonsPop
 {
+    using System;
+
     public static class ColorUtilities
     {
         /// <summary>

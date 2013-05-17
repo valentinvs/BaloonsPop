@@ -1,6 +1,4 @@
-﻿
-
-namespace BaloonsPop
+﻿namespace BaloonsPop
 {
     using System;
 
@@ -62,7 +60,7 @@ namespace BaloonsPop
         public ColorEnum Color { get; private set; }
 
         /// <summary>
-        /// 
+        /// Check if the balloon is popped and returns a boolean value.
         /// </summary>
         /// <returns>Return whether the balloon is Poped .</returns>
         public bool IsPopped { get; private set; }
